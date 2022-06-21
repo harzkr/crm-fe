@@ -1,25 +1,19 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Conversation from "./components/Conversation";
 
-const Routes = () => {
+const routes = () => {
   return (
     <Router>
-      <div>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/">
-          <Dashboard />
-        </Route>
-        <Route path="/conversation/:user">
-          <Conversation />
-        </Route>
-      </div>
+      <Routes>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/" element={<Dashboard />}/>
+        <Route path="/conversation/:user" element={<Conversation />}/>
+      </Routes>
     </Router>
   );
 };
 
-export default Routes;
+export default routes;
