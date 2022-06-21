@@ -11,7 +11,7 @@ const Login = () => {
     console.log(data);
   };
   return (
-    <div>
+    <div className="outerForm">
       <div className="formContainer">
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           {formType === "signup" && (
