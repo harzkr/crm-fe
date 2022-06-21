@@ -1,6 +1,7 @@
 import React from "react";
 import { TextField, Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
+import './styles.css';
 
 const Login = () => {
   const [formType, setFormType] = React.useState("login");
@@ -11,37 +12,39 @@ const Login = () => {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          id="email"
-          label="Email"
-          variant="filled"
-          {...register("email")}
-        />
-        <TextField
-          id="password"
-          label="Password"
-          variant="filled"
-          {...register("password")}
-        />
+      <div className="formContainer">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            id="email"
+            label="Email"
+            variant="filled"
+            {...register("email")}
+          />
+          <TextField
+            id="password"
+            label="Password"
+            variant="filled"
+            {...register("password")}
+          />
 
-        <Button type="submit" variant="contained">
-          Login
-        </Button>
-      </form>
+          <Button type="submit" variant="contained">
+            Login
+          </Button>
+        </form>
 
-      <Typography
-        style={{ cursor: "pointer" }}
-        onClick={
-          formType === "login"
-            ? () => setFormType("signup")
-            : () => setFormType("login")
-        }
-      >
-        {formType === "login"
-          ? "Don't Have an Account, Register Here"
-          : "Already Have an Account, Login Here"}
-      </Typography>
+        <Typography
+          style={{ cursor: "pointer" }}
+          onClick={
+            formType === "login"
+              ? () => setFormType("signup")
+              : () => setFormType("login")
+          }
+        >
+          {formType === "login"
+            ? "Don't Have an Account, Register Here"
+            : "Already Have an Account, Login Here"}
+        </Typography>
+      </div>
     </div>
   );
 };
