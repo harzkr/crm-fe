@@ -3,6 +3,9 @@ import {
     BrowserRouter as Router,
     Route,
   } from "react-router-dom";
+import Login from './components/Login';
+import Dashboard from './components/Dashboard';
+import Conversation from './components/Conversation';
 
 const Routes = () => {
     return(
@@ -20,3 +23,4 @@ const Routes = () => {
     )
 }
 
+export default Routes;
