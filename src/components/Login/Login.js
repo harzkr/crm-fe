@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import './styles.css';
+import "./styles.css";
 
 const Login = () => {
   const [formType, setFormType] = React.useState("login");
@@ -13,7 +13,15 @@ const Login = () => {
   return (
     <div>
       <div className="formContainer">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className="form" onSubmit={handleSubmit(onSubmit)}>
+          {formType === "signup" && (
+            <TextField
+              id="name"
+              label="Name"
+              variant="filled"
+              {...register("name")}
+            />
+          )}
           <TextField
             id="email"
             label="Email"
@@ -28,7 +36,7 @@ const Login = () => {
           />
 
           <Button type="submit" variant="contained">
-            Login
+            {formType === "login" ? "Login" : "Signup"}
           </Button>
         </form>
 
