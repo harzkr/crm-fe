@@ -1,8 +1,9 @@
 import React from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const [formType, setFormType] = React.useState("login");
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
@@ -28,6 +29,19 @@ const Login = () => {
           Login
         </Button>
       </form>
+
+      <Typography
+        style={{ cursor: "pointer" }}
+        onClick={
+          formType === "login"
+            ? () => setFormType("signup")
+            : () => setFormType("login")
+        }
+      >
+        {formType === "login"
+          ? "Don't Have an Account, Register Here"
+          : "Already Have an Account, Login Here"}
+      </Typography>
     </div>
   );
 };
