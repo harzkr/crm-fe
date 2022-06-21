@@ -5,12 +5,19 @@ import Dashboard from "./components/Dashboard";
 import Conversation from "./components/Conversation";
 
 const routes = () => {
+  const accessToken = localStorage.getItem("accessToken");
+
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/" element={<Dashboard />}/>
-        <Route path="/conversation/:user" element={<Conversation />}/>
+        {accessToken ? (
+          <Route path="/login" element={<Login />} />
+        ) : (
+          <>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/conversation/:user" element={<Conversation />} />
+          </>
+        )}
       </Routes>
     </Router>
   );
