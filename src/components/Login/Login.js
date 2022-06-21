@@ -20,6 +20,7 @@ const Login = () => {
               label="Name"
               variant="filled"
               {...register("name")}
+              className="field"
             />
           )}
           <TextField
@@ -27,21 +28,23 @@ const Login = () => {
             label="Email"
             variant="filled"
             {...register("email")}
+            className="field"
           />
           <TextField
             id="password"
             label="Password"
             variant="filled"
             {...register("password")}
+            className="field"
           />
 
-          <Button type="submit" variant="contained">
+          <Button className="button" type="submit" variant="contained">
             {formType === "login" ? "Login" : "Signup"}
           </Button>
         </form>
 
         <Typography
-          style={{ cursor: "pointer" }}
+          className="formMessage"
           onClick={
             formType === "login"
               ? () => setFormType("signup")

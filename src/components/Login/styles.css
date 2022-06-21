@@ -11,6 +11,22 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 400px;
-    margin-top: 20px;
+}
+
+.field{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.formMessage{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: magenta;
+    cursor:pointer;
+    font-size: small;
+}
+
+.button{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
