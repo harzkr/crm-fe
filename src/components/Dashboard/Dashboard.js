@@ -12,6 +12,18 @@ import {
 } from "@mui/material";
 
 const Dashboard = () => {
+  const [filtered, setFiltered] = React.useState([]);
+
+  const selectFilter = (val) => {
+    if (val) {
+      let _filtered = USERS.filter((user) => user.name === val);
+
+      if (_filtered) {
+        setFiltered(_filtered);
+      }
+    }
+  };
+
   return (
     <div className="outer">
       <div style={{ marginTop: 24 }}>
@@ -38,37 +50,74 @@ const Dashboard = () => {
             <TextField {...params} label="Search for users" />
           )}
           style={{ width: 300 }}
+          onChange={(event, value) => selectFilter(value)}
         />
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          flexWrap: "wrap",
-        }}
-      >
-        {USERS.map((user) => (
-          <div key={user.email} className="user">
-            <Card style={{ cursor: "pointer" }}>
-              <CardContent>
-                <Typography
-                  sx={{ fontSize: 16 }}
-                  color="text.secondary"
-                  gutterBottom
-                >
-                  {user.name}
-                </Typography>
-                <Typography sx={{ fontSize: 14 }}>{user.email}</Typography>
+      {filtered.length > 0 ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            flexWrap: "wrap",
+          }}
+        >
+          {filtered.map((user) => (
+            <div key={user.email} className="user">
+              <Card style={{ cursor: "pointer" }}>
+                <CardContent>
+                  <Typography
+                    sx={{ fontSize: 16 }}
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    {user.name}
+                  </Typography>
+                  <Typography sx={{ fontSize: 14 }}>{user.email}</Typography>
 
-                <Typography style={{ fontSize: 14, marginTop:24 }}>{user.lastMessage}</Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">CHAT</Button>
-              </CardActions>
-            </Card>
-          </div>
-        ))}
-      </div>
+                  <Typography style={{ fontSize: 14, marginTop: 24 }}>
+                    {user.lastMessage}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">CHAT</Button>
+                </CardActions>
+              </Card>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            flexWrap: "wrap",
+          }}
+        >
+          {USERS.map((user) => (
+            <div key={user.email} className="user">
+              <Card style={{ cursor: "pointer" }}>
+                <CardContent>
+                  <Typography
+                    sx={{ fontSize: 16 }}
+                    color="text.secondary"
+                    gutterBottom
+                  >
+                    {user.name}
+                  </Typography>
+                  <Typography sx={{ fontSize: 14 }}>{user.email}</Typography>
+
+                  <Typography style={{ fontSize: 14, marginTop: 24 }}>
+                    {user.lastMessage}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">CHAT</Button>
+                </CardActions>
+              </Card>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
