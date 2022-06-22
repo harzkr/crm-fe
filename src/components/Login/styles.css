@@ -26,9 +26,9 @@
 .formMessage{
     margin-top: 10px;
     margin-bottom: 10px;
-    color: rgb(213, 233, 66);
+    color: rgb(213, 233, 66) !important;
     cursor:pointer;
-    font-size: small;
+    font-size: 4px;
 }
 
 .button{
@@ -39,4 +39,9 @@
 .formError{
     color:red;
     font-size: 8px;
+}
+
+.pageTitle{
+    margin-bottom: 60px !important;
+    color: white;
 }

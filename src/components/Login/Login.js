@@ -18,6 +18,9 @@ const Login = () => {
   return (
     <div className="outerForm">
       <div className="formContainer">
+        <Typography variant="h2" className="pageTitle">
+            CRM DEMO
+        </Typography>
         <Typography className="formError">
           {errors.name && <span className="error">{errors.name.message}</span>}
         </Typography>
@@ -96,7 +99,7 @@ const Login = () => {
           </Button>
         </form>
 
-        <Typography
+        <Button
           className="formMessage"
           onClick={
             formType === "login"
@@ -107,7 +110,7 @@ const Login = () => {
           {formType === "login"
             ? "Don't Have an Account, Register Here"
             : "Already Have an Account, Login Here"}
-        </Typography>
+        </Button>
       </div>
     </div>
   );
