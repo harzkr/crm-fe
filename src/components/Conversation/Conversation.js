@@ -1,9 +1,10 @@
 import React from 'react';
+import { TextField } from '@mui/material';
 
 const Conversation = () => {
     return(
         <div>
-            Conversation Form
+            <TextField label="Type your message" />
         </div>
     )
 }
