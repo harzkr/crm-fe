@@ -10,8 +10,11 @@ import {
   Autocomplete,
   TextField,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   const [filtered, setFiltered] = React.useState([]);
 
   const selectFilter = (val) => {
@@ -67,7 +70,7 @@ const Dashboard = () => {
         >
           {filtered.map((user) => (
             <div key={user.email} className="user">
-              <Card style={{ cursor: "pointer" }}>
+              <Card onClick={() => navigate(`/conversation/1234`)} style={{ cursor: "pointer" }}>
                 <CardContent>
                   <Typography
                     sx={{ fontSize: 16 }}
@@ -99,7 +102,7 @@ const Dashboard = () => {
         >
           {USERS.map((user) => (
             <div key={user.email} className="user">
-              <Card style={{ cursor: "pointer" }}>
+              <Card onClick={() => navigate(`/conversation/${user.email}`)} style={{ cursor: "pointer" }}>
                 <CardContent>
                   <Typography
                     sx={{ fontSize: 16 }}

@@ -1,9 +1,15 @@
 import React from 'react';
 import { TextField } from '@mui/material';
+import { useParams } from "react-router-dom";
 
-const Conversation = () => {
+const Conversation = (props) => {
+
+    const { id } = useParams();
+
+    console.log(id);
+
     return(
-        <div>
+        <div style={{backgroundColor:'#333'}}>
             <TextField label="Type your message" />
         </div>
     )

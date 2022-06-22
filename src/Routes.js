@@ -38,7 +38,7 @@ const routes = () => {
           <Route path="/login" element={<Login />} />
           <Route element={<RequireAuth />}>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/conversation/:user" element={<Conversation />} />
+            <Route path="/conversation/:id" element={<Conversation />} />
           </Route>
         </Routes>
       </Router>
