@@ -2,10 +2,16 @@
     background-color: #333;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 }
 .title{
     color:white;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
+}
+
+.user{
+    margin-top: 24px;
+    margin-bottom: 12px;
+    width: 300px;
 }
