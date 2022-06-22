@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles.css";
 import { USERS } from "./mock";
-import Button from "@mui/material/Button";
 import {
   Typography,
   Button,
@@ -9,6 +8,7 @@ import {
   CardContent,
   CardActions,
   Autocomplete,
+  TextField
 } from "@mui/material";
 
 const Dashboard = () => {
@@ -21,6 +21,14 @@ const Dashboard = () => {
         <Typography className="titleLower">
           Click on any user to start or resume conversations
         </Typography>
+      </div>
+      <div>
+        <Autocomplete
+          id="free-solo-demo"
+          freeSolo
+          options={USERS.map((option) => option.name)}
+          renderInput={(params) => <TextField {...params} label="freeSolo" />}
+        />
       </div>
       <div
         style={{
