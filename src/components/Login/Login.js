@@ -5,21 +5,31 @@ import "./styles.css";
 
 const Login = () => {
   const [formType, setFormType] = React.useState("login");
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, formState:{errors} } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
   };
+  
   return (
     <div className="outerForm">
       <div className="formContainer">
+
+        <Typography className="formError">
+            {errors.email && <span className="error">{errors.email.message}</span>}
+        </Typography>
+        <Typography className="formError">
+            {errors.password && <span className="error">{errors.password.message}</span>}
+        </Typography>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           {formType === "signup" && (
             <TextField
               id="name"
               label="Name"
               variant="filled"
-              {...register("name")}
+              {...register("name", {
+                required: true,
+              })}
               className="field"
             />
           )}
@@ -27,14 +37,28 @@ const Login = () => {
             id="email"
             label="Email"
             variant="filled"
-            {...register("email")}
+            {...register("email", {
+              required: {
+                value: true,
+                message: "Email field cannot be empty",
+              },
+            })}
             className="field"
           />
           <TextField
             id="password"
             label="Password"
             variant="filled"
-            {...register("password")}
+            {...register("password", {
+              minLength: {
+                value: 8,
+                message: "must be 8 chars",
+              },
+              required: {
+                value: true,
+                message: "Password field cannot be empty",
+              },
+            })}
             className="field"
           />
 
