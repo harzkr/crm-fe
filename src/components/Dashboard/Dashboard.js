@@ -1,11 +1,15 @@
-import { Typography } from "@mui/material";
 import React from "react";
 import "./styles.css";
 import { USERS } from "./mock";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
+import {
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  CardActions,
+  Autocomplete,
+} from "@mui/material";
 
 const Dashboard = () => {
   return (
@@ -13,6 +17,9 @@ const Dashboard = () => {
       <div style={{ marginTop: 24 }}>
         <Typography variant="h3" className="title">
           Welcome!
+        </Typography>
+        <Typography className="titleLower">
+          Click on any user to start or resume conversations
         </Typography>
       </div>
       <div
@@ -24,7 +31,7 @@ const Dashboard = () => {
       >
         {USERS.map((user) => (
           <div key={user.email} className="user">
-            <Card>
+            <Card style={{ cursor: "pointer" }}>
               <CardContent>
                 <Typography
                   sx={{ fontSize: 16 }}
