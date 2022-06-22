@@ -8,7 +8,7 @@ import {
   CardContent,
   CardActions,
   Autocomplete,
-  TextField
+  TextField,
 } from "@mui/material";
 
 const Dashboard = () => {
@@ -22,12 +22,22 @@ const Dashboard = () => {
           Click on any user to start or resume conversations
         </Typography>
       </div>
-      <div>
+      <div
+        style={{
+          marginTop: 24,
+          marginBottom: 24,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Autocomplete
           id="free-solo-demo"
           freeSolo
           options={USERS.map((option) => option.name)}
-          renderInput={(params) => <TextField {...params} label="freeSolo" />}
+          renderInput={(params) => (
+            <TextField {...params} label="Search for users" />
+          )}
+          style={{ width: 300 }}
         />
       </div>
       <div
