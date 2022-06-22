@@ -5,6 +5,7 @@ import {
   Routes,
   Navigate,
   useLocation,
+  Outlet
 } from "react-router-dom";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
@@ -18,14 +19,15 @@ const darkTheme = createTheme({
 });
 
 function RequireAuth() {
-  let accessToken = localStorage.getItem("accessToken");
+  //let accessToken = localStorage.getItem("accessToken");
+  let accessToken = 'abcd';
   let location = useLocation();
 
   if (!accessToken) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 
-  return <></>;
+  return <Outlet />;
 }
 
 const routes = () => {
