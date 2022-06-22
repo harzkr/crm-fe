@@ -22,6 +22,10 @@ const Dashboard = () => {
         setFiltered(_filtered);
       }
     }
+    else{
+      console.log(val,'check');
+      setFiltered([]);
+    }
   };
 
   return (
