@@ -19,6 +19,9 @@ const Login = () => {
     <div className="outerForm">
       <div className="formContainer">
         <Typography className="formError">
+          {errors.name && <span className="error">{errors.name.message}</span>}
+        </Typography>
+        <Typography className="formError">
           {errors.email && (
             <span className="error">{errors.email.message}</span>
           )}
@@ -35,7 +38,10 @@ const Login = () => {
               label="Name"
               variant="filled"
               {...register("name", {
-                required: true,
+                required: {
+                  value: true,
+                  message: "Name field cannot be empty",
+                },
               })}
               style={{
                 marginTop: 10,
@@ -65,7 +71,7 @@ const Login = () => {
             {...register("password", {
               minLength: {
                 value: 8,
-                message: "must be 8 chars",
+                message: "Password must be a minimum of 8 characters",
               },
               required: {
                 value: true,
