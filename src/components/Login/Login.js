@@ -5,21 +5,28 @@ import "./styles.css";
 
 const Login = () => {
   const [formType, setFormType] = React.useState("login");
-  const { register, handleSubmit, formState:{errors} } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
   };
-  
+
   return (
     <div className="outerForm">
       <div className="formContainer">
-
         <Typography className="formError">
-            {errors.email && <span className="error">{errors.email.message}</span>}
+          {errors.email && (
+            <span className="error">{errors.email.message}</span>
+          )}
         </Typography>
         <Typography className="formError">
-            {errors.password && <span className="error">{errors.password.message}</span>}
+          {errors.password && (
+            <span className="error">{errors.password.message}</span>
+          )}
         </Typography>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           {formType === "signup" && (
