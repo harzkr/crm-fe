@@ -37,7 +37,10 @@ const Login = () => {
               {...register("name", {
                 required: true,
               })}
-              className="field"
+              style={{
+                marginTop: 10,
+                marginBottom: 10,
+              }}
             />
           )}
           <TextField
@@ -50,7 +53,10 @@ const Login = () => {
                 message: "Email field cannot be empty",
               },
             })}
-            className="field"
+            style={{
+              marginTop: 10,
+              marginBottom: 10,
+            }}
           />
           <TextField
             id="password"
@@ -66,10 +72,20 @@ const Login = () => {
                 message: "Password field cannot be empty",
               },
             })}
-            className="field"
+            style={{
+              marginTop: 10,
+              marginBottom: 10,
+            }}
           />
 
-          <Button className="button" type="submit" variant="contained">
+          <Button
+            style={{
+              marginTop: 10,
+              marginBottom: 10,
+            }}
+            type="submit"
+            variant="contained"
+          >
             {formType === "login" ? "Login" : "Signup"}
           </Button>
         </form>
