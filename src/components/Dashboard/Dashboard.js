@@ -59,6 +59,8 @@ const Dashboard = () => {
                   {user.name}
                 </Typography>
                 <Typography sx={{ fontSize: 14 }}>{user.email}</Typography>
+
+                <Typography style={{ fontSize: 14, marginTop:24 }}>{user.lastMessage}</Typography>
               </CardContent>
               <CardActions>
                 <Button size="small">CHAT</Button>

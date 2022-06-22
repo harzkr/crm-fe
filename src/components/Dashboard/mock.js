@@ -8,6 +8,7 @@ export function createRandomUser() {
     name: faker.name.firstName() + " " + faker.name.lastName(),
     email: faker.internet.email(),
     registeredAt: faker.date.past(),
+    lastMessage: faker.lorem.sentence(),
   };
 }
 
