@@ -3,7 +3,7 @@ import { TextField, Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import "./styles.css";
 
-const Login = ({mutate, generalError}) => {
+const Login = ({ mutate, mutateRegister, generalError }) => {
   const [formType, setFormType] = React.useState("login");
   const {
     register,
@@ -14,14 +14,18 @@ const Login = ({mutate, generalError}) => {
   const onSubmit = (data) => {
     console.log(data);
 
-    mutate(data);
+    if (formType === "login") {
+      mutate(data);
+    } else {
+      mutateRegister(data);
+    }
   };
 
   return (
     <div className="outerForm">
       <div className="formContainer">
         <Typography variant="h2" className="pageTitle">
-            CRM DEMO
+          CRM DEMO
         </Typography>
         <Typography className="formError">
           {generalError && <span className="error">{generalError}</span>}

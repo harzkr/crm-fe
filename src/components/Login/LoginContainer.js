@@ -17,10 +17,23 @@ const LoginContainer = () => {
         }
     }
 
-    const { mutate } = useMutation(logIn, {retry: 3})
+    const register = async (data) => {
+        try{
+            const response = await ApiResponse('post', '/v1/auth/register', data);
+            console.log('response',response);
+            return response;
+        } catch(err){
+            console.log(err.data.message);
+            setGeneralError(err.data.message);
+        }
+    }
+
+    const { mutate } = useMutation(logIn, {retry: 1})
+    const { mutate:mutateRegister } = useMutation(register, {retry: 1})
 
     const _props = {
         mutate,
+        mutateRegister,
         generalError
     }
 
