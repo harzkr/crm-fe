@@ -7,9 +7,14 @@ const LoginContainer = () => {
     const [generalError, setGeneralError] = React.useState(null);
 
     const logIn = async (data) => {
-        const response = await ApiResponse('post', '/v1/api/login', data);
-        console.log('response',response);
-        return response;
+        try{
+            const response = await ApiResponse('post', '/v1/auth/login', data);
+            console.log('response',response);
+            return response;
+        } catch(err){
+            console.log(err.data.message);
+            setGeneralError(err.data.message);
+        }
     }
 
     const { mutate } = useMutation(logIn, {retry: 3})

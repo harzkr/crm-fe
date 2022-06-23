@@ -1,16 +1,25 @@
 import axios from "axios";
 
-export const ApiResponse = async (method,url,body) =>{
-    try{
-        const response = axios({
-            method: method,
-            url: url,
-            data: body
+export const ApiResponse = (method, url, body) => {
+  return new Promise((resolve, reject) => {
+    if (method === "post") {
+      axios
+        .post(url, body)
+        .then((response) => {
+          resolve(response);
         })
-
-        return response.data;
-    } catch(err){
-        console.log(err.response.data.message);
-        return err.response.data.message;
+        .catch((error) => {
+          reject(error.response);
+        });
+    } else {
+      axios
+        .get(url)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error.response);
+        });
     }
-}
+  });
+};
