@@ -3,7 +3,7 @@ import { TextField, Button, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import "./styles.css";
 
-const Login = () => {
+const Login = ({mutate}) => {
   const [formType, setFormType] = React.useState("login");
   const {
     register,
@@ -13,6 +13,8 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+
+    mutate(data);
   };
 
   return (

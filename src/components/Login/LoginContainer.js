@@ -5,7 +5,7 @@ import Login from './Login';
 const LoginContainer = () => {
     const logIn = async (data) => {
         console.log('passing the data',data);
-        const response = await fetch('/login', {
+        const response = await fetch('/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
