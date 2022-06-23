@@ -3,10 +3,9 @@ import { useQuery, useMutation } from 'react-query';
 import Login from './Login';
 
 const LoginContainer = () => {
-    const {isLoading, isError, error, mutate} = useMutation(logIn, {retry: 3})
-
     const logIn = async (data) => {
-        const response = await fetch('http://localhost:3000/login', {
+        console.log('passing the data',data);
+        const response = await fetch('/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,6 +22,8 @@ const LoginContainer = () => {
 
         return userData;
     }
+
+    const {isLoading, isError, error, mutate} = useMutation(logIn, {retry: 3})
 
     const _props = {
         mutate,
