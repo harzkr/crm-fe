@@ -19,9 +19,8 @@ const darkTheme = createTheme({
 });
 
 function RequireAuth() {
-  //let accessToken = localStorage.getItem("accessToken");
-  let accessToken = 'abcd';
-  let location = useLocation();
+  const accessToken = localStorage.getItem("accessToken");
+  const location = useLocation();
 
   if (!accessToken) {
     return <Navigate to="/login" state={{ from: location }} />;

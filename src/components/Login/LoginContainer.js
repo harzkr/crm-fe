@@ -1,9 +1,11 @@
 import React from "react";
-import { useQuery, useMutation } from 'react-query';
+import { useMutation } from 'react-query';
 import Login from './Login';
 import { ApiResponse } from "../../utils/ApiResponse";
+import { useNavigate } from "react-router-dom";
 
 const LoginContainer = () => {
+    const navigate = useNavigate();
     const [generalError, setGeneralError] = React.useState(null);
 
     const logIn = async (data) => {
@@ -28,8 +30,29 @@ const LoginContainer = () => {
         }
     }
 
-    const { mutate } = useMutation(logIn, {retry: 1})
-    const { mutate:mutateRegister } = useMutation(register, {retry: 1})
+    const { mutate, data:dataLogin } = useMutation(logIn, {retry: 1})
+    const { mutate:mutateRegister, data:dataRegister } = useMutation(register, {retry: 1})
+
+    React.useEffect(()=>{
+        if(dataLogin && dataLogin.data){
+          const { tokens } = dataLogin.data;
+
+          const { user } = dataLogin.data;
+          localStorage.setItem("accessToken", tokens.access.token);
+          localStorage.setItem("refreshToken", tokens.refresh.token);
+            
+          if(user){
+            localStorage.setItem("email", user.email);
+            localStorage.setItem("name", user.name);
+          }
+
+          navigate('/');
+        }
+
+        if(dataRegister && dataRegister.data){
+            console.log(dataRegister.data);
+        }
+    },[dataLogin, navigate, dataRegister])
 
     const _props = {
         mutate,
