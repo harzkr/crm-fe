@@ -50,7 +50,18 @@ const LoginContainer = () => {
         }
 
         if(dataRegister && dataRegister.data){
-            console.log(dataRegister.data);
+            const { tokens } = dataRegister.data;
+
+            const { user } = dataRegister.data;
+            localStorage.setItem("accessToken", tokens.access.token);
+            localStorage.setItem("refreshToken", tokens.refresh.token);
+              
+            if(user){
+              localStorage.setItem("email", user.email);
+              localStorage.setItem("name", user.name);
+            }
+  
+            navigate('/');
         }
     },[dataLogin, navigate, dataRegister])
 
