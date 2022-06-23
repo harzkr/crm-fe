@@ -1,24 +1,15 @@
 import React from "react";
 import { useQuery, useMutation } from 'react-query';
 import Login from './Login';
-import axios from 'axios';
+import { ApiResponse } from "../../utils/ApiResponse";
 
 const LoginContainer = () => {
     const [generalError, setGeneralError] = React.useState(null);
 
     const logIn = async (data) => {
-        try{
-            console.log('passing the data',data);
-            const response = await axios.post('/v1/auth/login', data);
-    
-            console.log(response,'see see')
-    
-            return response.data;
-        }
-        catch(err){
-            console.log(err.response.data.message);
-            setGeneralError(err.response.data.message);
-        }
+        const response = await ApiResponse('post', '/v1/api/login', data);
+        console.log('response',response);
+        return response;
     }
 
     const { mutate } = useMutation(logIn, {retry: 3})
