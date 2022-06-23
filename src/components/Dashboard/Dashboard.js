@@ -12,14 +12,16 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
+const Dashboard = ({platformUsers}) => {
   const navigate = useNavigate();
+
+  const allUsers = platformUsers.length > 0 ? platformUsers : USERS;
 
   const [filtered, setFiltered] = React.useState([]);
 
   const selectFilter = (val) => {
     if (val) {
-      let _filtered = USERS.filter((user) => user.name === val);
+      let _filtered = allUsers.filter((user) => user.name === val);
 
       if (_filtered) {
         setFiltered(_filtered);
@@ -100,7 +102,7 @@ const Dashboard = () => {
             flexWrap: "wrap",
           }}
         >
-          {USERS.map((user) => (
+          {allUsers.map((user) => (
             <div key={user.email} className="user">
               <Card onClick={() => navigate(`/conversation/${user.email}`)} style={{ cursor: "pointer" }}>
                 <CardContent>
