@@ -1,11 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import Dashboard from "./Dashboard";
 import { ApiResponse } from "../../utils/ApiResponse";
 
 const DashboardContainer = () => {
-  const navigate = useNavigate();
 
   const getAllUsers = async () => {
     try {
