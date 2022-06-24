@@ -40,6 +40,7 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
                     borderBottomLeftRadius: 4,
                     marginRight: 4,
                     width: "fit-content",
+                    maxWidth:'50vw'
                   }
                 : {
                     marginTop: 12,
@@ -50,6 +51,7 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
                     borderBottomRightRadius: 4,
                     marginLeft: 4,
                     width: "fit-content",
+                    maxWidth:'50vw'
                   }
             }
           >
