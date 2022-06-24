@@ -1,7 +1,9 @@
 import React from "react";
 import { Button, TextField, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Conversation = ({ createMessage, conversationId, dataMessages }) => {
+  const navigate = useNavigate();
   const [message, setMessage] = React.useState("");
 
   const [userId] = React.useState(localStorage.getItem("userId"));
@@ -83,6 +85,14 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
           onClick={() => sendMessage()}
         >
           Send
+        </Button>
+        <Button
+          style={{ marginLeft: 8, marginTop: 8 }}
+          variant="contained"
+          color="secondary"
+          onClick={() => navigate(-1)}
+        >
+          Exit
         </Button>
       </div>
     </div>
