@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import './styles.css';
 
 const Conversation = ({ createMessage, conversationId, dataMessages }) => {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
             </Typography>
             <Typography
               variant="caption"
-              style={{ color: "white", marginTop: 12, marginLeft: 24 }}
+              className="date__format"
             >
               {new Date(message.createdAt).toLocaleString("en-US", {
                 hour: "numeric",
@@ -69,17 +70,15 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
           </div>
         </div>
       ))}
-      <div style={{ position: "absolute", bottom: 12, left: 12 }}>
+      <div className="message-writeup-container">
         <TextField
           label="Type your message"
-          style={{
-            width: "calc(100vw - 200px)",
-          }}
+          className="message-box"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
         <Button
-          style={{ marginLeft: 8, marginTop: 8 }}
+          className="btn-messager"
           variant="contained"
           color="primary"
           onClick={() => sendMessage()}
@@ -87,7 +86,7 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
           Send
         </Button>
         <Button
-          style={{ marginLeft: 8, marginTop: 8 }}
+          className="btn-messager"
           variant="contained"
           color="secondary"
           onClick={() => navigate(-1)}

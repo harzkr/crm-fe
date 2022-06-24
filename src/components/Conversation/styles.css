@@ -1,0 +1,20 @@
+.btn-messager{
+    margin-left: 8px;
+    margin-top: 8px;
+}
+
+.message-box{
+    width: calc(100vw - 200px);
+}
+
+.message-writeup-container{
+    position: absolute; 
+    bottom: 16px;
+    left: 12px;
+}
+
+.date__format{
+    color: white;
+    margin-top: 12px;
+    margin-left: 24px;
+}
