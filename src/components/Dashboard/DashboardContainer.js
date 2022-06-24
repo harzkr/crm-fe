@@ -39,8 +39,6 @@ const DashboardContainer = () => {
   const { data: dataUsers } = useQuery("users", getAllUsers);
   const { mutate, data: dataConversation } = useMutation(createConversation);
 
-  console.log(dataConversation, 'check on created conversation');
-
   const _props = {
     platformUsers: dataUsers ? dataUsers.data : [],
     createConversation: mutate,

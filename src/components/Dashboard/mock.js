@@ -12,6 +12,6 @@ export function createRandomUser() {
   };
 }
 
-Array.from({ length: 100 }).forEach(() => {
+Array.from({ length: 5 }).forEach(() => {
   USERS.push(createRandomUser());
 });

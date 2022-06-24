@@ -47,6 +47,18 @@ const Dashboard = ({ platformUsers, createConversation, dataConversation }) => {
     }
   }, [dataConversation, navigate]);
 
+  const getMessageTag = user => {
+    if(user && user.conversations && user.conversations.length > 0){
+      if(user.conversations[0].lastMessage.sender === localStorage.getItem("userId")){
+        return "You: " + user.conversations[0].lastMessage.message;
+      }
+      return user.conversations[0].lastMessage.content
+    }
+    else{
+      return "No messages yet"
+    }
+  }
+
   return (
     <div className="outer">
       <div style={{ marginTop: 24 }}>
@@ -101,9 +113,7 @@ const Dashboard = ({ platformUsers, createConversation, dataConversation }) => {
                   <Typography sx={{ fontSize: 14 }}>{user.email}</Typography>
 
                   <Typography style={{ fontSize: 14, marginTop: 24 }}>
-                    {user.conversations.length > 0
-                      ? user.conversations[0].lastMessage
-                      : "No messages"}
+                    {getMessageTag(user)}
                   </Typography>
                 </CardContent>
                 <CardActions>
@@ -138,9 +148,7 @@ const Dashboard = ({ platformUsers, createConversation, dataConversation }) => {
                   <Typography sx={{ fontSize: 14 }}>{user.email}</Typography>
 
                   <Typography style={{ fontSize: 14, marginTop: 24 }}>
-                    {user.conversations.length > 0
-                      ? user.conversations[0].lastMessage
-                      : "No messages"}
+                    {getMessageTag(user)}
                   </Typography>
                 </CardContent>
                 <CardActions>
