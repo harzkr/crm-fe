@@ -35,7 +35,7 @@ const Dashboard = ({platformUsers, createConversation, dataConversation}) => {
 
   const handleConversationNav = async user => {
     if(user.conversations.length > 0){
-      navigate(`/conversation/${user.conversations[0].id}`);
+      navigate(`/conversation/${user.conversations[0]._id}`);
     }
     else{
       createConversation(user);
