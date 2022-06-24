@@ -29,7 +29,8 @@ const ConversationContainer = () => {
 
   const { mutate, data: dataMessage } = useMutation(createMessage);
   const { data: dataMessages } = useQuery("messages", getMessages,{
-    refetchInterval:200000
+    refetchInterval:2000,
+    refetchIntervalInBackground:true
   });
 
   const _props = {

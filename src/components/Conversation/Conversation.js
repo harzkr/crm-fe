@@ -21,29 +21,35 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
 
   return (
     <div style={{ backgroundColor: "#333", minHeight: "100vh" }}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: message.sender === userId ? 'end' : 'start' }}>
-        {dataMessages.map((message) => (
+      {dataMessages.map((message) => (
+        <div
+          key={message.id}
+          style={{ display: "flex", flexDirection: "column", alignItems: message.sender === userId ? "end" : "start" }}
+        >
           <div
-            style={message.sender === userId ? {
-                marginTop: 12,
-                padding: 5,
-                display: "flex",
-                border: "1px solid #fdfbf7",
-                borderTopLeftRadius: 4,
-                borderBottomLeftRadius: 4,
-                marginRight:4,
-                width: "fit-content",         
-            } : {
-                marginTop: 12,
-                padding: 5,
-                display: "flex",
-                border: "1px solid #fdfbf7",
-                borderTopRightRadius: 4,
-                borderBottomRightRadius: 4,
-                marginLeft:4,
-                width: "fit-content",
-              }}
-            key={message.id}
+            style={
+              message.sender === userId
+                ? {
+                    marginTop: 12,
+                    padding: 5,
+                    display: "flex",
+                    border: "1px solid #fdfbf7",
+                    borderTopLeftRadius: 4,
+                    borderBottomLeftRadius: 4,
+                    marginRight: 4,
+                    width: "fit-content",
+                  }
+                : {
+                    marginTop: 12,
+                    padding: 5,
+                    display: "flex",
+                    border: "1px solid #fdfbf7",
+                    borderTopRightRadius: 4,
+                    borderBottomRightRadius: 4,
+                    marginLeft: 4,
+                    width: "fit-content",
+                  }
+            }
           >
             <Typography variant="body1" style={{ color: "white" }}>
               {message.content}
@@ -59,8 +65,8 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
               })}
             </Typography>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
       <div style={{ position: "absolute", bottom: 12, left: 12 }}>
         <TextField
           label="Type your message"
