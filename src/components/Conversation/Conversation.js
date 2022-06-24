@@ -2,8 +2,22 @@ import React from "react";
 import { Button, TextField } from "@mui/material";
 import { useParams } from "react-router-dom";
 
-const Conversation = (props) => {
+const Conversation = ({createMessage}) => {
   const { id } = useParams();
+  const [message, setMessage] = React.useState("");
+
+  const sendMessage = async () => {
+    let text = message.trim();
+    if(text.length > 0){
+      createMessage({
+        sender: localStorage.getItem("userId"),
+        content: text,
+        conversation: id,
+        read:false
+      });
+      setMessage("");
+    }
+  }
 
   console.log(id);
 
@@ -18,11 +32,14 @@ const Conversation = (props) => {
           style={{
             width: "calc(100vw - 200px)",
           }}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
         />
         <Button
           style={{ marginLeft: 8, marginTop: 8 }}
           variant="contained"
           color="primary"
+          onClick={() => sendMessage()}
         >
           Send
         </Button>
