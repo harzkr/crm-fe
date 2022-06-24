@@ -21,7 +21,7 @@ const DashboardContainer = () => {
   console.log(dataUsers);
 
   const _props = {
-    platformUsers: dataUsers ? dataUsers.data.results : [],
+    platformUsers: dataUsers ? dataUsers.data : [],
   };
 
   return <Dashboard {..._props} />;
