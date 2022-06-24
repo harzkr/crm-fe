@@ -44,7 +44,7 @@ const DashboardContainer = () => {
   const _props = {
     platformUsers: dataUsers ? dataUsers.data : [],
     createConversation: mutate,
-    dataConversation
+    dataConversation: dataConversation ? dataConversation.data : null,
   };
 
   return <Dashboard {..._props} />;

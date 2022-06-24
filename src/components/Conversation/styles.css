@@ -26,7 +26,7 @@
 
 .message__receiver{
     margin-top: 12px;
-    padding: 5px;
+    padding: 8px;
     display: flex;
     border: 1px solid #fdfbf7;
     border-top-left-radius: 4px;
@@ -37,7 +37,7 @@
 
 .message__sender{
     margin-top: 12px;
-    padding: 5px;
+    padding: 8px;
     display: flex;
     border: 1px solid #fdfbf7;
     border-top-right-radius: 4px;
