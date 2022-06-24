@@ -20,6 +20,9 @@ export const ApiResponse = (method, url, body) => {
           reject(error.response);
         });
     } else {
+      if(body){
+        config.params = body.params;
+      }
       axios
         .get(url, config)
         .then((response) => {

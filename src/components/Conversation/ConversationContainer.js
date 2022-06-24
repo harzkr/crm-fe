@@ -19,7 +19,7 @@ const ConversationContainer = () => {
   const getMessages = async () => {
     try {
       const response = await ApiResponse("get", "/v1/messages/get", {
-        params: { conversationId: id },
+        params: { conversation: id },
       });
       return response;
     } catch (err) {
@@ -27,9 +27,9 @@ const ConversationContainer = () => {
     }
   };
 
-  const { mutate, data: dataMessage } = useMutation(createMessage);
-  const { data: dataMessages } = useQuery("messages", getMessages,{
-    refetchInterval:2000,
+  const { mutate } = useMutation(createMessage);
+  const { data: dataMessages } = useQuery(`messages-${id}`, getMessages,{
+    refetchInterval:5000,
     refetchIntervalInBackground:true
   });
 

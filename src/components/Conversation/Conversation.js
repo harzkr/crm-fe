@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import './styles.css';
 
 const Conversation = ({ createMessage, conversationId, dataMessages }) => {
   const navigate = useNavigate();
@@ -23,17 +22,35 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
   };
 
   return (
-    <div className="outer-container">
+    <div style={{ backgroundColor: "#333", minHeight: "100vh" }}>
       {dataMessages.map((message) => (
         <div
           key={message.id}
           style={{ display: "flex", flexDirection: "column", alignItems: message.sender === userId ? "end" : "start" }}
         >
           <div
-            className={
+            style={
               message.sender === userId
-                ? "message__sender"
-                : "message__receiver"
+                ? {
+                    marginTop: 12,
+                    padding: 5,
+                    display: "flex",
+                    border: "1px solid #fdfbf7",
+                    borderTopLeftRadius: 4,
+                    borderBottomLeftRadius: 4,
+                    marginRight: 4,
+                    width: "fit-content",
+                  }
+                : {
+                    marginTop: 12,
+                    padding: 5,
+                    display: "flex",
+                    border: "1px solid #fdfbf7",
+                    borderTopRightRadius: 4,
+                    borderBottomRightRadius: 4,
+                    marginLeft: 4,
+                    width: "fit-content",
+                  }
             }
           >
             <Typography variant="body1" style={{ color: "white" }}>
@@ -41,7 +58,7 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
             </Typography>
             <Typography
               variant="caption"
-              className="date__format"
+              style={{ color: "white", marginTop: 12, marginLeft: 24 }}
             >
               {new Date(message.createdAt).toLocaleString("en-US", {
                 hour: "numeric",
@@ -52,15 +69,17 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
           </div>
         </div>
       ))}
-      <div className="message-writeup-container">
+      <div style={{ position: "absolute", bottom: 12, left: 12 }}>
         <TextField
           label="Type your message"
-          className="message-box"
+          style={{
+            width: "calc(100vw - 200px)",
+          }}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
         <Button
-          className="btn-messager"
+          style={{ marginLeft: 8, marginTop: 8 }}
           variant="contained"
           color="primary"
           onClick={() => sendMessage()}
@@ -68,7 +87,7 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
           Send
         </Button>
         <Button
-          className="btn-messager"
+          style={{ marginLeft: 8, marginTop: 8 }}
           variant="contained"
           color="secondary"
           onClick={() => navigate(-1)}
