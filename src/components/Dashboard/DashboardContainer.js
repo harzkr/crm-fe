@@ -2,13 +2,19 @@ import React from "react";
 import { useQuery, useMutation } from "react-query";
 import Dashboard from "./Dashboard";
 import { ApiResponse } from "../../utils/ApiResponse";
+import { useNavigate } from "react-router-dom";
 
 const DashboardContainer = () => {
+  const navigate = useNavigate();
   const getAllUsers = async () => {
     try {
       const response = await ApiResponse("get", "/v1/users/all-users");
       return response;
     } catch (err) {
+      if(err.data.message === 'Please authenticate'){
+        localStorage.removeItem('accessToken');
+        navigate('/login');
+      }
       console.log(err.data.message);
     }
   };

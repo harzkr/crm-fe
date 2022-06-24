@@ -19,7 +19,7 @@ const ConversationContainer = () => {
   const getMessages = async () => {
     try {
       const response = await ApiResponse("get", "/v1/messages/get", {
-        params: { conversation: id, limit:50 },
+        params: { conversation: id, limit:20 },
       });
       return response;
     } catch (err) {
