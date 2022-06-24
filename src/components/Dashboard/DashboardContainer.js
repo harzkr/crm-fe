@@ -18,14 +18,14 @@ const DashboardContainer = () => {
       const response = await ApiResponse("post", "/v1/conversations/create", {
         participants: [
           {
-            id: user.id,
+            userId: user._id,
             name: user.name,
             email: user.email,
           },
           {
-            id: localStorage.getItem("userId"),
-            name: localStorage.getItem("userName"),
-            email: localStorage.getItem("userEmail"),
+            userId: localStorage.getItem("userId"),
+            name: localStorage.getItem("name"),
+            email: localStorage.getItem("email"),
           },
         ],
       });
@@ -39,7 +39,7 @@ const DashboardContainer = () => {
   const { data: dataUsers } = useQuery("users", getAllUsers);
   const { mutate, data: dataConversation } = useMutation(createConversation);
 
-  console.log(dataUsers);
+  console.log(dataConversation, 'check on created conversation');
 
   const _props = {
     platformUsers: dataUsers ? dataUsers.data : [],

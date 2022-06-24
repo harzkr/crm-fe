@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const Dashboard = ({platformUsers, createConversation}) => {
+const Dashboard = ({platformUsers, createConversation, dataConversation}) => {
   const navigate = useNavigate();
 
   const allUsers = platformUsers.length > 0 ? platformUsers : USERS;
@@ -38,10 +38,16 @@ const Dashboard = ({platformUsers, createConversation}) => {
       navigate(`/conversation/${user.conversations[0].id}`);
     }
     else{
-      const response = await createConversation(user);
-      navigate(`/conversation/${response.data.id}`);
+      createConversation(user);
     }
   }
+
+  React.useEffect(()=>{
+    if(dataConversation && dataConversation.data){
+      const { conversation } = dataConversation.data;
+      navigate(`/conversation/${conversation.id}`);
+    }
+  },[dataConversation])
 
   return (
     <div className="outer">

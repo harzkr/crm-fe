@@ -44,6 +44,7 @@ const LoginContainer = () => {
           if(user){
             localStorage.setItem("email", user.email);
             localStorage.setItem("name", user.name);
+            localStorage.setItem("userId", user.id);
           }
 
           navigate('/');
@@ -59,6 +60,7 @@ const LoginContainer = () => {
             if(user){
               localStorage.setItem("email", user.email);
               localStorage.setItem("name", user.name);
+              localStorage.setItem("userId", user.id);
             }
   
             navigate('/');
