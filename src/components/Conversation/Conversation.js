@@ -8,6 +8,14 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
 
   const [userId] = React.useState(localStorage.getItem("userId"));
 
+  function handleScroll() {
+    window.scroll({
+      top: document.body.offsetHeight,
+      left: 0, 
+      behavior: 'smooth',
+    });
+  }
+
   const sendMessage = async () => {
     let text = message.trim();
     if (text.length > 0) {
@@ -21,8 +29,13 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
     }
   };
 
+  React.useEffect(() => {
+    handleScroll();
+  },[dataMessages]);
+
   return (
-    <div style={{ backgroundColor: "#333", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#333", minHeight: "100vh", display:'flex',flexDirection:'column' }}>
+      <div style={{marginBottom:120}}>
       {dataMessages.map((message) => (
         <div
           key={message.id}
@@ -71,7 +84,8 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
           </div>
         </div>
       ))}
-      <div style={{ position: "absolute", bottom: 12, left: 12 }}>
+      </div>
+      <div style={{ position: "fixed", bottom: 12, left: 12 }}>
         <TextField
           label="Type your message"
           style={{
