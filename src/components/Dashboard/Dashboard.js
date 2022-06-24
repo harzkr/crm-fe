@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const Dashboard = ({platformUsers}) => {
+const Dashboard = ({platformUsers, createConversation}) => {
   const navigate = useNavigate();
 
   const allUsers = platformUsers.length > 0 ? platformUsers : USERS;
@@ -32,6 +32,16 @@ const Dashboard = ({platformUsers}) => {
       setFiltered([]);
     }
   };
+
+  const handleConversationNav = async user => {
+    if(user.conversations.length > 0){
+      navigate(`/conversation/${user.conversations[0].id}`);
+    }
+    else{
+      const response = await createConversation(user);
+      navigate(`/conversation/${response.data.id}`);
+    }
+  }
 
   return (
     <div className="outer">
@@ -104,7 +114,7 @@ const Dashboard = ({platformUsers}) => {
         >
           {allUsers.map((user) => (
             <div key={user.email} className="user">
-              <Card onClick={() => navigate(`/conversation/${user.email}`)} style={{ cursor: "pointer" }}>
+              <Card onClick={() => handleConversationNav(user)} style={{ cursor: "pointer" }}>
                 <CardContent>
                   <Typography
                     sx={{ fontSize: 16 }}
