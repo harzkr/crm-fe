@@ -50,7 +50,7 @@ const Dashboard = ({ platformUsers, createConversation, dataConversation }) => {
   const getMessageTag = user => {
     if(user && user.conversations && user.conversations.length > 0){
       if(user.conversations[0].lastMessage.sender === localStorage.getItem("userId")){
-        return "You: " + user.conversations[0].lastMessage.message;
+        return "You: " + user.conversations[0].lastMessage.content;
       }
       return user.conversations[0].lastMessage.content
     }
