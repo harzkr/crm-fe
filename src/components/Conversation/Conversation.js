@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 const Conversation = (props) => {
@@ -9,10 +9,23 @@ const Conversation = (props) => {
 
   return (
     <div style={{ backgroundColor: "#333", minHeight: "100vh" }}>
-      <div style={{ position: "absolute", bottom: 12, left: 12,width:'calc(100vw - 24px)' }}>
-        <TextField label="Type your message" style={{
-            width:'calc(100vw - 24px)'
-        }} />
+        <div>
+            Message display zone
+        </div>
+      <div style={{ position: "absolute", bottom: 12, left: 12 }}>
+        <TextField
+          label="Type your message"
+          style={{
+            width: "calc(100vw - 200px)",
+          }}
+        />
+        <Button
+          style={{ marginLeft: 8, marginTop: 8 }}
+          variant="contained"
+          color="primary"
+        >
+          Send
+        </Button>
       </div>
     </div>
   );
