@@ -23,35 +23,17 @@ const Conversation = ({ createMessage, conversationId, dataMessages }) => {
   };
 
   return (
-    <div style={{ backgroundColor: "#333", minHeight: "100vh" }}>
+    <div className="outer-container">
       {dataMessages.map((message) => (
         <div
           key={message.id}
           style={{ display: "flex", flexDirection: "column", alignItems: message.sender === userId ? "end" : "start" }}
         >
           <div
-            style={
+            className={
               message.sender === userId
-                ? {
-                    marginTop: 12,
-                    padding: 5,
-                    display: "flex",
-                    border: "1px solid #fdfbf7",
-                    borderTopLeftRadius: 4,
-                    borderBottomLeftRadius: 4,
-                    marginRight: 4,
-                    width: "fit-content",
-                  }
-                : {
-                    marginTop: 12,
-                    padding: 5,
-                    display: "flex",
-                    border: "1px solid #fdfbf7",
-                    borderTopRightRadius: 4,
-                    borderBottomRightRadius: 4,
-                    marginLeft: 4,
-                    width: "fit-content",
-                  }
+                ? "message__sender"
+                : "message__receiver"
             }
           >
             <Typography variant="body1" style={{ color: "white" }}>
