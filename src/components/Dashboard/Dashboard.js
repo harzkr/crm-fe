@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const Dashboard = ({platformUsers, createConversation, dataConversation}) => {
+const Dashboard = ({ platformUsers, createConversation, dataConversation }) => {
   const navigate = useNavigate();
 
   const allUsers = platformUsers.length > 0 ? platformUsers : USERS;
@@ -26,28 +26,26 @@ const Dashboard = ({platformUsers, createConversation, dataConversation}) => {
       if (_filtered) {
         setFiltered(_filtered);
       }
-    }
-    else{
-      console.log(val,'check');
+    } else {
+      console.log(val, "check");
       setFiltered([]);
     }
   };
 
-  const handleConversationNav = async user => {
-    if(user.conversations.length > 0){
+  const handleConversationNav = async (user) => {
+    if (user.conversations.length > 0) {
       navigate(`/conversation/${user.conversations[0]._id}`);
-    }
-    else{
+    } else {
       createConversation(user);
     }
-  }
+  };
 
-  React.useEffect(()=>{
-    if(dataConversation && dataConversation.data){
+  React.useEffect(() => {
+    if (dataConversation && dataConversation.data) {
       const { data } = dataConversation.data;
       navigate(`/conversation/${data.id}`);
     }
-  },[dataConversation])
+  }, [dataConversation, navigate]);
 
   return (
     <div className="outer">
@@ -88,7 +86,10 @@ const Dashboard = ({platformUsers, createConversation, dataConversation}) => {
         >
           {filtered.map((user) => (
             <div key={user.email} className="user">
-              <Card onClick={() => navigate(`/conversation/1234`)} style={{ cursor: "pointer" }}>
+              <Card
+                onClick={() => handleConversationNav(user)}
+                style={{ cursor: "pointer" }}
+              >
                 <CardContent>
                   <Typography
                     sx={{ fontSize: 16 }}
@@ -100,7 +101,9 @@ const Dashboard = ({platformUsers, createConversation, dataConversation}) => {
                   <Typography sx={{ fontSize: 14 }}>{user.email}</Typography>
 
                   <Typography style={{ fontSize: 14, marginTop: 24 }}>
-                    {user.lastMessage}
+                    {user.conversations.length > 0
+                      ? user.conversations[0].lastMessage
+                      : "No messages"}
                   </Typography>
                 </CardContent>
                 <CardActions>
@@ -120,7 +123,10 @@ const Dashboard = ({platformUsers, createConversation, dataConversation}) => {
         >
           {allUsers.map((user) => (
             <div key={user.email} className="user">
-              <Card onClick={() => handleConversationNav(user)} style={{ cursor: "pointer" }}>
+              <Card
+                onClick={() => handleConversationNav(user)}
+                style={{ cursor: "pointer" }}
+              >
                 <CardContent>
                   <Typography
                     sx={{ fontSize: 16 }}
@@ -132,7 +138,9 @@ const Dashboard = ({platformUsers, createConversation, dataConversation}) => {
                   <Typography sx={{ fontSize: 14 }}>{user.email}</Typography>
 
                   <Typography style={{ fontSize: 14, marginTop: 24 }}>
-                    {user.lastMessage}
+                    {user.conversations.length > 0
+                      ? user.conversations[0].lastMessage
+                      : "No messages"}
                   </Typography>
                 </CardContent>
                 <CardActions>
