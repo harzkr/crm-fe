@@ -45,13 +45,8 @@ const DashboardContainer = () => {
   };
 
   const {
-    isLoading,
-    isError,
-    error,
     data: dataUsers,
     fetchNextPage,
-    isFetching,
-    isFetchingNextPage,
     hasNextPage,
     hasPreviousPage,
   } = useInfiniteQuery("users", getAllUsers, {

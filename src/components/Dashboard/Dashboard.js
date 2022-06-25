@@ -1,6 +1,5 @@
 import React from "react";
 import "./styles.css";
-import { USERS } from "./mock";
 import {
   Typography,
   Button,
@@ -26,7 +25,7 @@ const Dashboard = ({
     [platformUsers]
   );
 
-  const allUsers = _platformUsers.length > 0 ? _platformUsers : USERS;
+  const allUsers = _platformUsers.length > 0 ? _platformUsers : [];
 
   const [filtered, setFiltered] = React.useState([]);
 
@@ -50,12 +49,6 @@ const Dashboard = ({
     }
   };
 
-  React.useEffect(() => {
-    if (dataConversation) {
-      navigate(`/conversation/${dataConversation.id}`);
-    }
-  }, [dataConversation, navigate]);
-
   const getMessageTag = (user) => {
     if (user && user.conversations && user.conversations.length > 0) {
       let conv = user.conversations[0];
@@ -70,6 +63,12 @@ const Dashboard = ({
       return "No messages yet";
     }
   };
+
+  React.useEffect(() => {
+    if (dataConversation) {
+      navigate(`/conversation/${dataConversation.id}`);
+    }
+  }, [dataConversation, navigate]);
 
   return (
     <div className="outer">

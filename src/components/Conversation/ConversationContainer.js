@@ -31,10 +31,6 @@ const ConversationContainer = () => {
   };
 
   const { mutate, data:createdMessage } = useMutation(createMessage);
-  /*const { data: dataMessages, isFetching } = useQuery([`messages`,pageNo], getMessages,{
-    refetchInterval:5000,
-    refetchIntervalInBackground:true
-  },{keepPreviousData:true});*/
 
   const {
     data:dataMessages,

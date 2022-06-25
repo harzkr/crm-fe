@@ -14,8 +14,6 @@ const Login = ({ mutate, mutateRegister, generalError }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-
     if (formType === "login") {
       mutate(data);
     } else {

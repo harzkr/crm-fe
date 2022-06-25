@@ -13,22 +13,22 @@ const Conversation = ({
   fetchNextPage,
   hasNextPage,
   refetchLatest,
-  createdMessage
+  createdMessage,
 }) => {
   const navigate = useNavigate();
   const [message, setMessage] = React.useState("");
 
   const [userId] = React.useState(localStorage.getItem("userId"));
 
-  const [latestMessage, setLatestMessage] = React.useState('');
+  const [latestMessage, setLatestMessage] = React.useState("");
 
-  function handleScroll() {
-      window.scroll({
-        top: document.body.offsetHeight,
-        left: 0,
-        behavior: "smooth",
-      });
-  }
+  const handleScroll = () => {
+    window.scroll({
+      top: document.body.offsetHeight,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
 
   const sendMessage = async () => {
     let text = message.trim();
@@ -46,29 +46,29 @@ const Conversation = ({
 
   React.useEffect(() => {
     handleScroll();
-  },[])
+  }, []);
 
   React.useEffect(() => {
-    if(dataMessages.length > 0){
+    if (dataMessages.length > 0) {
       let lastMessage = dataMessages[0]?.data?.results[0]?.content;
 
-      if(latestMessage !== lastMessage){
+      if (latestMessage !== lastMessage) {
         handleScroll();
       }
     }
   }, [dataMessages, latestMessage]);
 
   React.useEffect(() => {
-    if(createdMessage){
+    if (createdMessage) {
       refetchLatest();
 
       handleScroll();
     }
-  },[createdMessage])
+  }, [createdMessage]);
 
   React.useEffect(() => {
     window.onscroll = () => {
-      if(window.pageYOffset === 0){
+      if (window.pageYOffset === 0) {
         if (pageNo < maxPage && !isFetching && dataMessages.length !== 0) {
           setPageNo(pageNo + 1);
           fetchNextPage();
@@ -77,8 +77,7 @@ const Conversation = ({
     };
 
     return () => (window.onscroll = null);
-  }, [pageNo, maxPage, isFetching,setPageNo,fetchNextPage,hasNextPage]);
-
+  }, [pageNo, maxPage, isFetching, setPageNo, fetchNextPage, hasNextPage]);
 
   return (
     <div
