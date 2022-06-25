@@ -25,7 +25,7 @@ const Login = ({ mutate, mutateRegister, generalError }) => {
     <div className="outerForm">
       <div className="formContainer">
         <Typography variant="h2" className="pageTitle">
-          CRM DEMO
+          CRM CHAT DEMO
         </Typography>
         <Typography className="formError">
           {generalError && <span className="error">{generalError}</span>}

@@ -19,51 +19,53 @@ const ConversationContainer = () => {
     }
   };
 
-  const getMessages = async ({pageParam = 1}) => {
-      try {
-        const response = await ApiResponse("get", "/v1/messages/get", {
-          params: { conversation: id, limit:100, page: pageParam },
-        });
-        return response;
-      } catch (err) {
-        console.log(err.data.message);
-      }
+  const getMessages = async ({ pageParam = 1 }) => {
+    try {
+      const response = await ApiResponse("get", "/v1/messages/get", {
+        params: { conversation: id, limit: 100, page: pageParam },
+      });
+      return response;
+    } catch (err) {
+      console.log(err.data.message);
+    }
   };
 
-  const { mutate, data:createdMessage } = useMutation(createMessage);
+  const { mutate, data: createdMessage } = useMutation(createMessage);
 
   const {
-    data:dataMessages,
+    data: dataMessages,
     fetchNextPage,
     hasNextPage,
     isFetching,
-    refetch
-  } = useInfiniteQuery('messages', getMessages, {
-    getNextPageParam: (lastPage, pages) =>{
-      return  maxPage > pages.length ? pages.length + 1 : undefined;
+    refetch,
+  } = useInfiniteQuery("messages", getMessages, {
+    getNextPageParam: (lastPage, pages) => {
+      return maxPage > pages.length ? pages.length + 1 : undefined;
     },
-    select: data => ({
+    select: (data) => ({
       pages: [...data.pages].reverse(),
       pageParams: [...data.pageParams].reverse(),
     }),
-  })
+  });
 
   React.useEffect(() => {
-    if(dataMessages && dataMessages.pages){
-      if(dataMessages.pages.length > 0 && maxPage === 1){
-        setMaxPage(dataMessages.pages[dataMessages.pages.length-1].data.totalPages); 
+    if (dataMessages && dataMessages.pages) {
+      if (dataMessages.pages.length > 0 && maxPage === 1) {
+        setMaxPage(
+          dataMessages.pages[dataMessages.pages.length - 1].data.totalPages
+        );
       }
     }
-  },[dataMessages, maxPage]);
+  }, [dataMessages, maxPage]);
 
-  const refetchLatest = async () => {
-    refetch({ refetchPage: (page, index) => index === 0 })
-  }
+  const refetchLatest = React.useCallback(async () => {
+    refetch({ refetchPage: (page, index) => index === 0 });
+  }, [refetch]);
 
   React.useEffect(() => {
     const timer = setInterval(refetchLatest, 10000);
     return () => clearInterval(timer);
-  }, []);
+  }, [refetchLatest]);
 
   const _props = {
     createMessage: mutate,
@@ -76,7 +78,7 @@ const ConversationContainer = () => {
     fetchNextPage,
     hasNextPage,
     refetchLatest,
-    createdMessage
+    createdMessage,
   };
   return <Conversation {..._props} />;
 };

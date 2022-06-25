@@ -77,7 +77,7 @@ const Conversation = ({
     };
 
     return () => (window.onscroll = null);
-  }, [pageNo, maxPage, isFetching, setPageNo, fetchNextPage, hasNextPage]);
+  }, [pageNo, maxPage, isFetching, setPageNo, fetchNextPage, hasNextPage, dataMessages]);
 
   return (
     <div
