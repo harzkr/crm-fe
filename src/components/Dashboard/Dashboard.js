@@ -12,13 +12,19 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const Dashboard = ({ platformUsers, createConversation, dataConversation }) => {
+const Dashboard = ({
+  platformUsers,
+  createConversation,
+  dataConversation,
+  hasNextPage,
+  fetchNextPage,
+}) => {
   const navigate = useNavigate();
 
   const _platformUsers = React.useMemo(
-    () => platformUsers.flatMap(page => page.data.docs),
+    () => platformUsers.flatMap((page) => page.data.docs),
     [platformUsers]
-  )
+  );
 
   const allUsers = _platformUsers.length > 0 ? _platformUsers : USERS;
 
@@ -47,23 +53,25 @@ const Dashboard = ({ platformUsers, createConversation, dataConversation }) => {
 
   React.useEffect(() => {
     if (dataConversation) {
-      console.log(dataConversation)
+      console.log(dataConversation);
       navigate(`/conversation/${dataConversation.id}`);
     }
   }, [dataConversation, navigate]);
 
-  const getMessageTag = user => {
-    if(user && user.conversations && user.conversations.length > 0){
-      let conv = user.conversations[0]
-      if(conv.lastMessage && conv.lastMessage.sender === localStorage.getItem("userId")){
+  const getMessageTag = (user) => {
+    if (user && user.conversations && user.conversations.length > 0) {
+      let conv = user.conversations[0];
+      if (
+        conv.lastMessage &&
+        conv.lastMessage.sender === localStorage.getItem("userId")
+      ) {
         return "You: " + user.conversations[0].lastMessage.content;
       }
       return conv.lastMessage ? conv.lastMessage.content : "";
+    } else {
+      return "No messages yet";
     }
-    else{
-      return "No messages yet"
-    }
-  }
+  };
 
   return (
     <div className="outer">
@@ -163,6 +171,12 @@ const Dashboard = ({ platformUsers, createConversation, dataConversation }) => {
               </Card>
             </div>
           ))}
+        </div>
+      )}
+
+      {hasNextPage && (
+        <div className="btn-container">
+          <button onClick={fetchNextPage}>Load More</button>
         </div>
       )}
     </div>

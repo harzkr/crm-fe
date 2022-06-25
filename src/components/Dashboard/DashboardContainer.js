@@ -53,7 +53,7 @@ const DashboardContainer = () => {
     isFetching,
     isFetchingNextPage,
     hasNextPage,
-    hasPreviousPage
+    hasPreviousPage,
   } = useInfiniteQuery("users", getAllUsers, {
     getNextPageParam: (lastPage, pages) => {
       return lastPage.nextPage;
@@ -67,7 +67,7 @@ const DashboardContainer = () => {
     dataConversation: dataConversation ? dataConversation.data : null,
     fetchNextPage,
     hasNextPage,
-    hasPreviousPage
+    hasPreviousPage,
   };
 
   return <Dashboard {..._props} />;
