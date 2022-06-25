@@ -59,7 +59,6 @@ const DashboardContainer = () => {
   });
   const { mutate, data: dataConversation } = useMutation(createConversation);
 
-  console.log(dataUsers);
   const _props = {
     platformUsers: dataUsers ? dataUsers.pages : [],
     createConversation: mutate,
