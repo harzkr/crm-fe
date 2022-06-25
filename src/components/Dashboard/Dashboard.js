@@ -41,9 +41,9 @@ const Dashboard = ({ platformUsers, createConversation, dataConversation }) => {
   };
 
   React.useEffect(() => {
-    if (dataConversation && dataConversation.data) {
-      const { data } = dataConversation.data;
-      navigate(`/conversation/${data.id}`);
+    if (dataConversation) {
+      console.log(dataConversation)
+      navigate(`/conversation/${dataConversation.id}`);
     }
   }, [dataConversation, navigate]);
 

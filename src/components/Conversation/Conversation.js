@@ -68,17 +68,17 @@ const Conversation = ({
 
   React.useEffect(() => {
     window.onscroll = () => {
-      window.pageYOffset === 0 && console.log("back at top");
-      if (pageNo < maxPage && !isFetching && dataMessages.length !== 0) {
-        setPageNo(pageNo + 1);
-        fetchNextPage();
+      if(window.pageYOffset === 0){
+        if (pageNo < maxPage && !isFetching && dataMessages.length !== 0) {
+          setPageNo(pageNo + 1);
+          fetchNextPage();
+        }
       }
     };
 
     return () => (window.onscroll = null);
   }, [pageNo, maxPage, isFetching,setPageNo,fetchNextPage,hasNextPage]);
 
-  console.log(latestMessage,'dms...')
 
   return (
     <div
