@@ -81,7 +81,7 @@ const Dashboard = ({ platformUsers, createConversation, dataConversation }) => {
         <Autocomplete
           id="free-solo-demo"
           freeSolo
-          options={USERS.map((option) => option.name)}
+          options={allUsers.map((option) => option.name)}
           renderInput={(params) => (
             <TextField {...params} label="Search for users" />
           )}
