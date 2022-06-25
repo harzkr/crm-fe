@@ -49,10 +49,11 @@ const Dashboard = ({ platformUsers, createConversation, dataConversation }) => {
 
   const getMessageTag = user => {
     if(user && user.conversations && user.conversations.length > 0){
-      if(user.conversations[0].lastMessage.sender === localStorage.getItem("userId")){
+      let conv = user.conversations[0]
+      if(conv.lastMessage && conv.lastMessage.sender === localStorage.getItem("userId")){
         return "You: " + user.conversations[0].lastMessage.content;
       }
-      return user.conversations[0].lastMessage.content
+      return conv.lastMessage ? conv.lastMessage.content : "";
     }
     else{
       return "No messages yet"

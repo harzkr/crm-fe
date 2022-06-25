@@ -50,7 +50,7 @@ const Conversation = ({
 
   React.useEffect(() => {
     if(dataMessages.length > 0){
-      let lastMessage = dataMessages[0].data.results[0].content;
+      let lastMessage = dataMessages[0]?.data?.results[0]?.content;
 
       if(latestMessage !== lastMessage){
         handleScroll();
