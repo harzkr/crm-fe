@@ -1,6 +1,8 @@
 import axios from "axios";
+import { server_url } from "./url";
 
 export const ApiResponse = (method, url, body) => {
+  url = server_url + url;
   return new Promise((resolve, reject) => {
     const config = {};
 

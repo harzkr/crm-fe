@@ -31,7 +31,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://aqueous-plateau-11194.herokuapp.com",
   "eslintConfig": {
     "extends": [
       "react-app",

@@ -1,0 +1,1 @@
+export const server_url = `https://aqueous-plateau-11194.herokuapp.com`;
