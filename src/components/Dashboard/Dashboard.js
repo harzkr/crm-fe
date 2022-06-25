@@ -15,7 +15,12 @@ import { useNavigate } from "react-router-dom";
 const Dashboard = ({ platformUsers, createConversation, dataConversation }) => {
   const navigate = useNavigate();
 
-  const allUsers = platformUsers.length > 0 ? platformUsers : USERS;
+  const _platformUsers = React.useMemo(
+    () => platformUsers.flatMap(page => page.data.docs),
+    [platformUsers]
+  )
+
+  const allUsers = _platformUsers.length > 0 ? _platformUsers : USERS;
 
   const [filtered, setFiltered] = React.useState([]);
 
