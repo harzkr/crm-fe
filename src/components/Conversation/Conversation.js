@@ -6,13 +6,12 @@ const Conversation = ({
   createMessage,
   conversationId,
   dataMessages,
-  scrollTopTrigger,
   pageNo,
   maxPage,
   isFetching,
   setPageNo,
   fetchNextPage,
-  hasNextPage,
+  hasNextPage
 }) => {
   const navigate = useNavigate();
   const [message, setMessage] = React.useState("");
@@ -20,11 +19,11 @@ const Conversation = ({
   const [userId] = React.useState(localStorage.getItem("userId"));
 
   function handleScroll() {
-    window.scroll({
-      top: document.body.offsetHeight,
-      left: 0,
-      behavior: "smooth",
-    });
+      window.scroll({
+        top: document.body.offsetHeight,
+        left: 0,
+        behavior: "smooth",
+      });
   }
 
   const sendMessage = async () => {
@@ -41,8 +40,12 @@ const Conversation = ({
   };
 
   React.useEffect(() => {
-    handleScroll();
+    if (dataMessages.length > 0) {
+      handleScroll();
+    }
   }, [dataMessages]);
+
+  console.log(dataMessages,'dms')
 
   React.useEffect(() => {
     window.onscroll = () => {

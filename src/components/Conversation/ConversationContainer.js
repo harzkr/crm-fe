@@ -9,8 +9,6 @@ const ConversationContainer = () => {
 
   const [pageNo, setPageNo] = React.useState(1);
   const [maxPage, setMaxPage] = React.useState(1);
-  const [pageIndexes,setPageIndexes] = React.useState({});
-  //const [resArr, setResArr] = React.useState([]);
 
   const createMessage = async (data) => {
     try {
@@ -40,16 +38,18 @@ const ConversationContainer = () => {
 
   const {
     data:dataMessages,
-    error,
     fetchNextPage,
     hasNextPage,
     isFetching,
-    isFetchingNextPage,
-    status,
+    refetch
   } = useInfiniteQuery('messages', getMessages, {
     getNextPageParam: (lastPage, pages) =>{
       return  maxPage > pages.length ? pages.length + 1 : undefined;
     },
+    select: data => ({
+      pages: [...data.pages].reverse(),
+      pageParams: [...data.pageParams].reverse(),
+    }),
   })
 
   React.useEffect(() => {
@@ -58,7 +58,16 @@ const ConversationContainer = () => {
         setMaxPage(dataMessages.pages[dataMessages.pages.length-1].data.totalPages); 
       }
     }
-  },[dataMessages]);
+  },[dataMessages, maxPage]);
+
+  const refetchLatest = async () => {
+    refetch({ refetchPage: (page, index) => index === 0 })
+  }
+
+  React.useEffect(() => {
+    const timer = setInterval(refetchLatest, 10000);
+    return () => clearInterval(timer);
+  }, []);
 
   const _props = {
     createMessage: mutate,
