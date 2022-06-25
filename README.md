@@ -14,6 +14,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+#### Please Note
+
+When run directly, the app refers to the url present in the `src/utils/url.js` file, change it to your local server url if you are starting up from there
+
+It has been configured so for deployment to heroku which is connected directly with Github
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
