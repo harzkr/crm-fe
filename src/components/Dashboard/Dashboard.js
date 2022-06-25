@@ -38,7 +38,6 @@ const Dashboard = ({
         setFiltered(_filtered);
       }
     } else {
-      console.log(val, "check");
       setFiltered([]);
     }
   };
@@ -53,7 +52,6 @@ const Dashboard = ({
 
   React.useEffect(() => {
     if (dataConversation) {
-      console.log(dataConversation);
       navigate(`/conversation/${dataConversation.id}`);
     }
   }, [dataConversation, navigate]);
@@ -67,7 +65,7 @@ const Dashboard = ({
       ) {
         return "You: " + user.conversations[0].lastMessage.content;
       }
-      return conv.lastMessage ? conv.lastMessage.content : "";
+      return conv.lastMessage ? conv.lastMessage.content : "No messages yet";
     } else {
       return "No messages yet";
     }
@@ -175,8 +173,15 @@ const Dashboard = ({
       )}
 
       {hasNextPage && (
-        <div className="btn-container">
-          <button onClick={fetchNextPage}>Load More</button>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Button
+            style={{ marginTop: 24,marginBottom:24 }}
+            variant="contained"
+            size="medium"
+            onClick={fetchNextPage}
+          >
+            Load More
+          </Button>
         </div>
       )}
     </div>
