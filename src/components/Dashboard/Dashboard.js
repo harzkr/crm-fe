@@ -58,7 +58,7 @@ const Dashboard = ({
       ) {
         return "You: " + user.conversations[0].lastMessage.content;
       }
-      return conv.lastMessage ? conv.lastMessage.content : "No messages yet";
+      return conv.lastMessage ? conv.lastMessage.content : "Start the conversation";
     } else {
       return "No messages yet";
     }

@@ -2,6 +2,17 @@ import React from "react";
 import { Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+const days_map = {
+  0: "Sunday",
+  1: "Monday",
+  2: "Tuesday",
+  3: "Wednesday",
+  4: "Thursday",
+  5: "Friday",
+  6: "Saturday",
+  7: "Sunday",
+}
+
 const Conversation = ({
   createMessage,
   conversationId,
@@ -64,7 +75,7 @@ const Conversation = ({
 
       handleScroll();
     }
-  }, [createdMessage]);
+  }, [createdMessage, refetchLatest]);
 
   React.useEffect(() => {
     window.onscroll = () => {
@@ -91,7 +102,7 @@ const Conversation = ({
       <div style={{ marginBottom: 120 }}>
         {dataMessages.map((page, i) => (
           <React.Fragment key={i}>
-            {page.data.results.map((message) => (
+            {page.data.results.map((message,j) => (
               <div
                 key={message.id}
                 style={{
@@ -141,6 +152,17 @@ const Conversation = ({
                     })}
                   </Typography>
                 </div>
+                {
+                    (page.data.results[j+1] !== undefined && (new Date(message.createdAt).getDay() !== new Date(page.data.results[j+1].createdAt).getDay())) ? (
+                      <>
+                        <div style={{display:'flex',justifyContent:'center',marginTop:32,marginBottom:32, width:'100vw'}}>
+                          <Typography variant="h6" style={{color:'white'}}>
+                            -- {days_map[new Date(page.data.results[j+1].createdAt).getDay()]} --
+                          </Typography>
+                        </div>
+                      </>
+                    ) : <></>
+                  }
               </div>
             ))}
           </React.Fragment>

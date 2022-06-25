@@ -9,7 +9,7 @@ const DashboardContainer = () => {
   const getAllUsers = async ({ pageParam = 1 }) => {
     try {
       const response = await ApiResponse("get", "/v1/users/all-users", {
-        params: { page: pageParam },
+        params: { page: pageParam, limit: 20 },
       });
       return response;
     } catch (err) {
