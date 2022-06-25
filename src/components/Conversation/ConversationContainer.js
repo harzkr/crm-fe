@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, useMutation } from "react-query";
+import { useInfiniteQuery, useMutation } from "react-query";
 import Conversation from "./Conversation";
 import { ApiResponse } from "../../utils/ApiResponse";
 import { useParams } from "react-router-dom";
@@ -9,6 +9,8 @@ const ConversationContainer = () => {
 
   const [pageNo, setPageNo] = React.useState(1);
   const [maxPage, setMaxPage] = React.useState(1);
+  const [pageIndexes,setPageIndexes] = React.useState({});
+  //const [resArr, setResArr] = React.useState([]);
 
   const createMessage = async (data) => {
     try {
@@ -19,47 +21,55 @@ const ConversationContainer = () => {
     }
   };
 
-  const getMessages = async () => {
-    try {
-      const response = await ApiResponse("get", "/v1/messages/get", {
-        params: { conversation: id, limit:20 },
-      });
-      return response;
-    } catch (err) {
-      console.log(err.data.message);
-    }
+  const getMessages = async ({pageParam = 1}) => {
+      try {
+        const response = await ApiResponse("get", "/v1/messages/get", {
+          params: { conversation: id, limit:20, page: pageParam },
+        });
+        return response;
+      } catch (err) {
+        console.log(err.data.message);
+      }
   };
 
   const { mutate } = useMutation(createMessage);
-  const { data: dataMessages, isFetching } = useQuery([`messages`,pageNo], getMessages,{
+  /*const { data: dataMessages, isFetching } = useQuery([`messages`,pageNo], getMessages,{
     refetchInterval:5000,
     refetchIntervalInBackground:true
-  },{keepPreviousData:true});
+  },{keepPreviousData:true});*/
 
-  console.log(pageNo,maxPage, isFetching);
-
-  const scrollTopTrigger = (page,max) => {
-    console.log(page,max, isFetching,'----<>----');
-    if(page < max && !isFetching){
-      setPageNo(page+1);
-      console.log('triginside')
-    }
-  }
+  const {
+    data:dataMessages,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery('messages', getMessages, {
+    getNextPageParam: (lastPage, pages) =>{
+      return  maxPage > pages.length ? pages.length + 1 : undefined;
+    },
+  })
 
   React.useEffect(() => {
-    if(dataMessages && dataMessages.data){
-      setMaxPage(dataMessages.data.totalPages);
+    if(dataMessages && dataMessages.pages){
+      if(dataMessages.pages.length > 0 && maxPage === 1){
+        setMaxPage(dataMessages.pages[dataMessages.pages.length-1].data.totalPages); 
+      }
     }
   },[dataMessages]);
 
   const _props = {
     createMessage: mutate,
     conversationId: id,
-    dataMessages: dataMessages ? dataMessages.data.results : [],
-    scrollTopTrigger: scrollTopTrigger,
+    dataMessages: dataMessages ? dataMessages.pages : [],
     pageNo,
     maxPage,
-    isFetching
+    isFetching,
+    setPageNo,
+    fetchNextPage,
+    hasNextPage
   };
   return <Conversation {..._props} />;
 };

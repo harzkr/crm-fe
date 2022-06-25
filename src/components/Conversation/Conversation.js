@@ -9,7 +9,10 @@ const Conversation = ({
   scrollTopTrigger,
   pageNo,
   maxPage,
-  isFetching
+  isFetching,
+  setPageNo,
+  fetchNextPage,
+  hasNextPage,
 }) => {
   const navigate = useNavigate();
   const [message, setMessage] = React.useState("");
@@ -42,13 +45,16 @@ const Conversation = ({
   }, [dataMessages]);
 
   React.useEffect(() => {
-    window.onscroll = () =>{
+    window.onscroll = () => {
       window.pageYOffset === 0 && console.log("back at top");
-      scrollTopTrigger(pageNo,maxPage);
-    }
+      if (pageNo < maxPage && !isFetching && dataMessages.length !== 0) {
+        setPageNo(pageNo + 1);
+        fetchNextPage();
+      }
+    };
 
     return () => (window.onscroll = null);
-  },[pageNo,maxPage,isFetching]);
+  }, [pageNo, maxPage, isFetching,setPageNo,fetchNextPage,hasNextPage]);
 
   return (
     <div
@@ -60,57 +66,61 @@ const Conversation = ({
       }}
     >
       <div style={{ marginBottom: 120 }}>
-        {dataMessages.map((message) => (
-          <div
-            key={message.id}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: message.sender === userId ? "end" : "start",
-            }}
-          >
-            <div
-              style={
-                message.sender === userId
-                  ? {
-                      marginTop: 12,
-                      padding: 5,
-                      display: "flex",
-                      border: "1px solid #fdfbf7",
-                      borderTopLeftRadius: 4,
-                      borderBottomLeftRadius: 4,
-                      marginRight: 4,
-                      width: "fit-content",
-                      maxWidth: "50vw",
-                    }
-                  : {
-                      marginTop: 12,
-                      padding: 5,
-                      display: "flex",
-                      border: "1px solid #fdfbf7",
-                      borderTopRightRadius: 4,
-                      borderBottomRightRadius: 4,
-                      marginLeft: 4,
-                      width: "fit-content",
-                      maxWidth: "50vw",
-                    }
-              }
-            >
-              <Typography variant="body1" style={{ color: "white" }}>
-                {message.content}
-              </Typography>
-              <Typography
-                variant="caption"
-                style={{ color: "white", marginTop: 12, marginLeft: 24 }}
+        {dataMessages.map((page, i) => (
+          <React.Fragment key={i}>
+            {page.data.results.map((message) => (
+              <div
+                key={message.id}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: message.sender === userId ? "end" : "start",
+                }}
               >
-                {new Date(message.createdAt).toLocaleString("en-US", {
-                  hour: "numeric",
-                  minute: "numeric",
-                  hour12: true,
-                })}
-              </Typography>
-            </div>
-          </div>
+                <div
+                  style={
+                    message.sender === userId
+                      ? {
+                          marginTop: 12,
+                          padding: 5,
+                          display: "flex",
+                          border: "1px solid #fdfbf7",
+                          borderTopLeftRadius: 4,
+                          borderBottomLeftRadius: 4,
+                          marginRight: 4,
+                          width: "fit-content",
+                          maxWidth: "50vw",
+                        }
+                      : {
+                          marginTop: 12,
+                          padding: 5,
+                          display: "flex",
+                          border: "1px solid #fdfbf7",
+                          borderTopRightRadius: 4,
+                          borderBottomRightRadius: 4,
+                          marginLeft: 4,
+                          width: "fit-content",
+                          maxWidth: "50vw",
+                        }
+                  }
+                >
+                  <Typography variant="body1" style={{ color: "white" }}>
+                    {message.content}
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    style={{ color: "white", marginTop: 12, marginLeft: 24 }}
+                  >
+                    {new Date(message.createdAt).toLocaleString("en-US", {
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })}
+                  </Typography>
+                </div>
+              </div>
+            ))}
+          </React.Fragment>
         ))}
       </div>
       <div style={{ position: "fixed", bottom: 12, left: 12 }}>
