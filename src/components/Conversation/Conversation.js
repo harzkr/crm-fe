@@ -11,12 +11,16 @@ const Conversation = ({
   isFetching,
   setPageNo,
   fetchNextPage,
-  hasNextPage
+  hasNextPage,
+  refetchLatest,
+  createdMessage
 }) => {
   const navigate = useNavigate();
   const [message, setMessage] = React.useState("");
 
   const [userId] = React.useState(localStorage.getItem("userId"));
+
+  const [latestMessage, setLatestMessage] = React.useState('');
 
   function handleScroll() {
       window.scroll({
@@ -36,16 +40,31 @@ const Conversation = ({
         read: false,
       });
       setMessage("");
+      setLatestMessage(text);
     }
   };
 
   React.useEffect(() => {
-    if (dataMessages.length > 0) {
+    handleScroll();
+  },[])
+
+  React.useEffect(() => {
+    if(dataMessages.length > 0){
+      let lastMessage = dataMessages[0].data.results[0].content;
+
+      if(latestMessage !== lastMessage){
+        handleScroll();
+      }
+    }
+  }, [dataMessages, latestMessage]);
+
+  React.useEffect(() => {
+    if(createdMessage){
+      refetchLatest();
+
       handleScroll();
     }
-  }, [dataMessages]);
-
-  console.log(dataMessages,'dms')
+  },[createdMessage])
 
   React.useEffect(() => {
     window.onscroll = () => {
@@ -58,6 +77,8 @@ const Conversation = ({
 
     return () => (window.onscroll = null);
   }, [pageNo, maxPage, isFetching,setPageNo,fetchNextPage,hasNextPage]);
+
+  console.log(latestMessage,'dms...')
 
   return (
     <div

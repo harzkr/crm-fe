@@ -22,7 +22,7 @@ const ConversationContainer = () => {
   const getMessages = async ({pageParam = 1}) => {
       try {
         const response = await ApiResponse("get", "/v1/messages/get", {
-          params: { conversation: id, limit:20, page: pageParam },
+          params: { conversation: id, limit:100, page: pageParam },
         });
         return response;
       } catch (err) {
@@ -30,7 +30,7 @@ const ConversationContainer = () => {
       }
   };
 
-  const { mutate } = useMutation(createMessage);
+  const { mutate, data:createdMessage } = useMutation(createMessage);
   /*const { data: dataMessages, isFetching } = useQuery([`messages`,pageNo], getMessages,{
     refetchInterval:5000,
     refetchIntervalInBackground:true
@@ -78,7 +78,9 @@ const ConversationContainer = () => {
     isFetching,
     setPageNo,
     fetchNextPage,
-    hasNextPage
+    hasNextPage,
+    refetchLatest,
+    createdMessage
   };
   return <Conversation {..._props} />;
 };
