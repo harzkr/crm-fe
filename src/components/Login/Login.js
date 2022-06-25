@@ -8,6 +8,8 @@ const Login = ({ mutate, mutateRegister, generalError }) => {
   const {
     register,
     handleSubmit,
+    reset,
+    clearErrors,
     formState: { errors },
   } = useForm();
 
@@ -112,8 +114,16 @@ const Login = ({ mutate, mutateRegister, generalError }) => {
           className="formMessage"
           onClick={
             formType === "login"
-              ? () => setFormType("signup")
-              : () => setFormType("login")
+              ? () => {
+                  setFormType("signup");
+                  reset();
+                  clearErrors();
+                }
+              : () => {
+                  setFormType("login");
+                  reset();
+                  clearErrors();
+                }
           }
         >
           {formType === "login"
