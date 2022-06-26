@@ -21,7 +21,7 @@ const Dashboard = ({
   const navigate = useNavigate();
 
   const _platformUsers = React.useMemo(
-    () => platformUsers.flatMap((page) => page.data.docs),
+    () => platformUsers.flatMap((page) => page && page.data ? page.data.docs : []),
     [platformUsers]
   );
 
