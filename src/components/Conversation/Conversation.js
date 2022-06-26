@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import './styles.css'
 
 const days_map = {
   0: "Sunday",
@@ -90,25 +91,18 @@ const Conversation = ({
     return () => (window.onscroll = null);
   }, [pageNo, maxPage, isFetching, setPageNo, fetchNextPage, hasNextPage, dataMessages]);
 
-  console.log(message)
   return (
     <div
-      style={{
-        backgroundColor: "#333",
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-      }}
+      className="conversation__outer"
     >
-      <div style={{ marginBottom: 120 }}>
+      <div className="margin__gutter">
         {dataMessages.map((page, i) => (
           <React.Fragment key={i}>
             {page.data.results.map((message,j) => (
               <div
                 key={message.id}
+                className="page__outer"
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
                   alignItems: message.sender === userId ? "end" : "start",
                 }}
               >
