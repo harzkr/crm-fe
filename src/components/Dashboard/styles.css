@@ -32,3 +32,13 @@
     display: flex;
     justify-content: center;
 }
+
+.autocomplete__input{ 
+    width: 300px !important; 
+}
+
+.filtered__container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}

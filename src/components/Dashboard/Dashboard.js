@@ -90,17 +90,13 @@ const Dashboard = ({
           renderInput={(params) => (
             <TextField {...params} label="Search for users" />
           )}
-          style={{ width: 300 }}
+          className="autocomplete__input"
           onChange={(event, value) => selectFilter(value)}
         />
       </div>
       {filtered.length > 0 ? (
         <div
-          style={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            flexWrap: "wrap",
-          }}
+          className="filtered__container"
         >
           {filtered.map((user) => (
             <div key={user.email} className="user">
