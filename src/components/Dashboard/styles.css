@@ -42,3 +42,18 @@
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
+
+.user__card{ 
+    cursor: pointer; 
+}
+
+.users__container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.load__more{ 
+    display: flex;
+    justify-content: center; 
+}

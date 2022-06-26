@@ -102,17 +102,17 @@ const Dashboard = ({
             <div key={user.email} className="user">
               <Card
                 onClick={() => handleConversationNav(user)}
-                style={{ cursor: "pointer" }}
+                className="user__card"
               >
                 <CardContent>
                   <Typography
-                    sx={{ fontSize: 16 }}
+                    style={{ fontSize: 16 }}
                     color="text.secondary"
                     gutterBottom
                   >
                     {user.name}
                   </Typography>
-                  <Typography sx={{ fontSize: 14 }}>{user.email}</Typography>
+                  <Typography style={{ fontSize: 14 }}>{user.email}</Typography>
 
                   <Typography style={{ fontSize: 14, marginTop: 24 }}>
                     {getMessageTag(user)}
@@ -127,27 +127,23 @@ const Dashboard = ({
         </div>
       ) : (
         <div
-          style={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            flexWrap: "wrap",
-          }}
+          className="users__container"
         >
           {allUsers.map((user) => (
             <div key={user.email} className="user">
               <Card
                 onClick={() => handleConversationNav(user)}
-                style={{ cursor: "pointer" }}
+                className="user__card"
               >
                 <CardContent>
                   <Typography
-                    sx={{ fontSize: 16 }}
+                    style={{ fontSize: 16 }}
                     color="text.secondary"
                     gutterBottom
                   >
                     {user.name}
                   </Typography>
-                  <Typography sx={{ fontSize: 14 }}>{user.email}</Typography>
+                  <Typography style={{ fontSize: 14 }}>{user.email}</Typography>
 
                   <Typography style={{ fontSize: 14, marginTop: 24 }}>
                     {getMessageTag(user)}
@@ -163,7 +159,7 @@ const Dashboard = ({
       )}
 
       {hasNextPage && (
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="load__more">
           <Button
             style={{ marginTop: 24,marginBottom:24 }}
             variant="contained"
