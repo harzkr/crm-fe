@@ -57,3 +57,16 @@
     display: flex;
     justify-content: center; 
 }
+
+.user__name{
+    font-size: 16px !important;
+}
+
+.user__email{
+    font-size: 12px !important;
+}
+
+.last__message__tag{
+    font-size: 14px !important; 
+    margin-top: 24px !important;
+}

@@ -137,15 +137,15 @@ const Dashboard = ({
               >
                 <CardContent>
                   <Typography
-                    style={{ fontSize: 16 }}
+                    className="user__name"
                     color="text.secondary"
                     gutterBottom
                   >
                     {user.name}
                   </Typography>
-                  <Typography style={{ fontSize: 14 }}>{user.email}</Typography>
+                  <Typography className="user__email">{user.email}</Typography>
 
-                  <Typography style={{ fontSize: 14, marginTop: 24 }}>
+                  <Typography className="last__message_tag">
                     {getMessageTag(user)}
                   </Typography>
                 </CardContent>
