@@ -11,10 +11,8 @@ const LoginContainer = () => {
     const logIn = async (data) => {
         try{
             const response = await ApiResponse('post', '/v1/auth/login', data);
-            console.log('response',response);
             return response;
         } catch(err){
-            console.log(err.data.message);
             setGeneralError(err.data.message);
         }
     }
@@ -22,10 +20,8 @@ const LoginContainer = () => {
     const register = async (data) => {
         try{
             const response = await ApiResponse('post', '/v1/auth/register', data);
-            console.log('response',response);
             return response;
         } catch(err){
-            console.log(err.data.message);
             setGeneralError(err.data.message);
         }
     }
