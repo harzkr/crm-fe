@@ -4,6 +4,20 @@ import Login from './Login';
 import { ApiResponse } from "../../utils/ApiResponse";
 import { useNavigate } from "react-router-dom";
 
+const userUpdate = (data) => {
+    const { tokens } = data;
+
+    const { user } = data;
+    localStorage.setItem("accessToken", tokens.access.token);
+    localStorage.setItem("refreshToken", tokens.refresh.token);
+      
+    if(user){
+      localStorage.setItem("email", user.email);
+      localStorage.setItem("name", user.name);
+      localStorage.setItem("userId", user.id);
+    }
+}
+
 const LoginContainer = () => {
     const navigate = useNavigate();
     const [generalError, setGeneralError] = React.useState(null);
@@ -31,33 +45,13 @@ const LoginContainer = () => {
 
     React.useEffect(()=>{
         if(dataLogin && dataLogin.data){
-          const { tokens } = dataLogin.data;
-
-          const { user } = dataLogin.data;
-          localStorage.setItem("accessToken", tokens.access.token);
-          localStorage.setItem("refreshToken", tokens.refresh.token);
-            
-          if(user){
-            localStorage.setItem("email", user.email);
-            localStorage.setItem("name", user.name);
-            localStorage.setItem("userId", user.id);
-          }
+          userUpdate(dataLogin.data);
 
           navigate('/');
         }
 
         if(dataRegister && dataRegister.data){
-            const { tokens } = dataRegister.data;
-
-            const { user } = dataRegister.data;
-            localStorage.setItem("accessToken", tokens.access.token);
-            localStorage.setItem("refreshToken", tokens.refresh.token);
-              
-            if(user){
-              localStorage.setItem("email", user.email);
-              localStorage.setItem("name", user.name);
-              localStorage.setItem("userId", user.id);
-            }
+            userUpdate(dataRegister.data);
   
             navigate('/');
         }
