@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import './styles.css'
+import "./styles.css";
 
 const days_map = {
   0: "Sunday",
@@ -12,7 +12,7 @@ const days_map = {
   5: "Friday",
   6: "Saturday",
   7: "Sunday",
-}
+};
 
 const Conversation = ({
   createMessage,
@@ -89,16 +89,22 @@ const Conversation = ({
     };
 
     return () => (window.onscroll = null);
-  }, [pageNo, maxPage, isFetching, setPageNo, fetchNextPage, hasNextPage, dataMessages]);
+  }, [
+    pageNo,
+    maxPage,
+    isFetching,
+    setPageNo,
+    fetchNextPage,
+    hasNextPage,
+    dataMessages,
+  ]);
 
   return (
-    <div
-      className="conversation__outer"
-    >
+    <div className="conversation__outer">
       <div className="margin__gutter">
         {dataMessages.map((page, i) => (
           <React.Fragment key={i}>
-            {page.data.results.map((message,j) => (
+            {page.data.results.map((message, j) => (
               <div
                 key={message.id}
                 className="page__outer"
@@ -107,33 +113,16 @@ const Conversation = ({
                 }}
               >
                 <div
-                  style={
+                  className={
                     message.sender === userId
-                      ? {
-                          marginTop: 12,
-                          padding: 5,
-                          display: "flex",
-                          border: "1px solid #fdfbf7",
-                          borderTopLeftRadius: 4,
-                          borderBottomLeftRadius: 4,
-                          marginRight: 4,
-                          width: "fit-content",
-                          maxWidth: "50vw",
-                        }
-                      : {
-                          marginTop: 12,
-                          padding: 5,
-                          display: "flex",
-                          border: "1px solid #fdfbf7",
-                          borderTopRightRadius: 4,
-                          borderBottomRightRadius: 4,
-                          marginLeft: 4,
-                          width: "fit-content",
-                          maxWidth: "50vw",
-                        }
+                      ? "conversation__message__right"
+                      : "conversation__message__left"
                   }
                 >
-                  <Typography variant="body1" style={{ color: "white", whiteSpace:'pre-line' }}>
+                  <Typography
+                    variant="body1"
+                    style={{ color: "white", whiteSpace: "pre-line" }}
+                  >
                     {message.content}
                   </Typography>
                   <Typography
@@ -147,23 +136,35 @@ const Conversation = ({
                     })}
                   </Typography>
                 </div>
-                {
-                    (page.data.results[j+1] !== undefined && (new Date(message.createdAt).getDay() !== new Date(page.data.results[j+1].createdAt).getDay())) ? (
-                      <>
-                        <div style={{display:'flex',justifyContent:'center',marginTop:32,marginBottom:32, width:'100vw'}}>
-                          <Typography variant="h6" style={{color:'white'}}>
-                            -- {days_map[new Date(page.data.results[j+1].createdAt).getDay()]} --
-                          </Typography>
-                        </div>
-                      </>
-                    ) : <></>
-                  }
+                {page.data.results[j + 1] !== undefined &&
+                new Date(message.createdAt).getDay() !==
+                  new Date(page.data.results[j + 1].createdAt).getDay() ? (
+                  <>
+                    <div
+                      className="day__divider"
+                    >
+                      <Typography variant="h6" style={{ color: "white" }}>
+                        --{" "}
+                        {
+                          days_map[
+                            new Date(
+                              page.data.results[j + 1].createdAt
+                            ).getDay()
+                          ]
+                        }{" "}
+                        --
+                      </Typography>
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
               </div>
             ))}
           </React.Fragment>
         ))}
       </div>
-      <div style={{ position: "fixed", bottom: 12, left: 12 }}>
+      <div className="textbox__container">
         <TextField
           label="Type your message"
           style={{
