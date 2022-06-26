@@ -58,11 +58,31 @@ const Dashboard = ({
       ) {
         return "You: " + user.conversations[0].lastMessage.content;
       }
-      return conv.lastMessage ? conv.lastMessage.content : "Start the conversation";
+      return conv.lastMessage
+        ? conv.lastMessage.content
+        : "Start the conversation";
     } else {
       return "No messages yet";
     }
   };
+
+  const cardRender = (user) => (
+    <Card onClick={() => handleConversationNav(user)} className="user__card">
+      <CardContent>
+        <Typography className="user__name" color="text.secondary" gutterBottom>
+          {user.name}
+        </Typography>
+        <Typography className="user__email">{user.email}</Typography>
+
+        <Typography className="last__message__tag">
+          {getMessageTag(user)}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">CHAT</Button>
+      </CardActions>
+    </Card>
+  );
 
   React.useEffect(() => {
     if (dataConversation) {
@@ -80,9 +100,7 @@ const Dashboard = ({
           Click on any user to start or resume conversations
         </Typography>
       </div>
-      <div
-        className="autocomplete__container"
-      >
+      <div className="autocomplete__container">
         <Autocomplete
           id="free-solo-demo"
           freeSolo
@@ -95,64 +113,18 @@ const Dashboard = ({
         />
       </div>
       {filtered.length > 0 ? (
-        <div
-          className="filtered__container"
-        >
+        <div className="filtered__container">
           {filtered.map((user) => (
             <div key={user.email} className="user">
-              <Card
-                onClick={() => handleConversationNav(user)}
-                className="user__card"
-              >
-                <CardContent>
-                  <Typography
-                    style={{ fontSize: 16 }}
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    {user.name}
-                  </Typography>
-                  <Typography style={{ fontSize: 14 }}>{user.email}</Typography>
-
-                  <Typography style={{ fontSize: 14, marginTop: 24 }}>
-                    {getMessageTag(user)}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small">CHAT</Button>
-                </CardActions>
-              </Card>
+              {cardRender(user)}
             </div>
           ))}
         </div>
       ) : (
-        <div
-          className="users__container"
-        >
+        <div className="users__container">
           {allUsers.map((user) => (
             <div key={user.email} className="user">
-              <Card
-                onClick={() => handleConversationNav(user)}
-                className="user__card"
-              >
-                <CardContent>
-                  <Typography
-                    className="user__name"
-                    color="text.secondary"
-                    gutterBottom
-                  >
-                    {user.name}
-                  </Typography>
-                  <Typography className="user__email">{user.email}</Typography>
-
-                  <Typography className="last__message__tag">
-                    {getMessageTag(user)}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small">CHAT</Button>
-                </CardActions>
-              </Card>
+              {cardRender(user)}
             </div>
           ))}
         </div>
