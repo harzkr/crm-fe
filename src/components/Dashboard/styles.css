@@ -11,13 +11,24 @@
 }
 
 .titleLower{
-    color:rgb(180, 222, 97);
-    text-align: center;
-    margin-top: 10px;
+    color:rgb(180, 222, 97) !important;
+    text-align: center !important;
+    margin-top: 10px !important;
 }
 
 .user{
     margin-top: 24px;
     margin-bottom: 12px;
     width: 300px;
+}
+
+.welcome__tag{
+    margin-top: 24px !important;
+}
+
+.autocomplete__container{
+    margin-top: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
 }

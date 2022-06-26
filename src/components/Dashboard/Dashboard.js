@@ -72,7 +72,7 @@ const Dashboard = ({
 
   return (
     <div className="outer">
-      <div style={{ marginTop: 24 }}>
+      <div className="welcome__tag">
         <Typography variant="h3" className="title">
           Welcome!
         </Typography>
@@ -81,12 +81,7 @@ const Dashboard = ({
         </Typography>
       </div>
       <div
-        style={{
-          marginTop: 24,
-          marginBottom: 24,
-          display: "flex",
-          justifyContent: "center",
-        }}
+        className="autocomplete__container"
       >
         <Autocomplete
           id="free-solo-demo"
