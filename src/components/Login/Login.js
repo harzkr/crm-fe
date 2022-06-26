@@ -22,12 +22,12 @@ const Login = ({ mutate, mutateRegister, generalError }) => {
   };
 
   return (
-    <div className="outerForm">
-      <div className="formContainer">
-        <Typography variant="h2" className="pageTitle">
+    <div className="outer__form">
+      <div className="form__container">
+        <Typography variant="h2" className="page__title">
           CRM CHAT DEMO
         </Typography>
-        <Typography className="formError">
+        <Typography className="form__error">
           {generalError && <span className="error">{generalError}</span>}
         </Typography>
         <Typography className="formError">
@@ -38,7 +38,7 @@ const Login = ({ mutate, mutateRegister, generalError }) => {
             <span className="error">{errors.email.message}</span>
           )}
         </Typography>
-        <Typography className="formError">
+        <Typography className="form__error">
           {errors.password && (
             <span className="error">{errors.password.message}</span>
           )}
@@ -55,10 +55,7 @@ const Login = ({ mutate, mutateRegister, generalError }) => {
                   message: "Name field cannot be empty",
                 },
               })}
-              style={{
-                marginTop: 10,
-                marginBottom: 10,
-              }}
+              className="form__field"
             />
           )}
           <TextField
@@ -71,10 +68,7 @@ const Login = ({ mutate, mutateRegister, generalError }) => {
                 message: "Email field cannot be empty",
               },
             })}
-            style={{
-              marginTop: 10,
-              marginBottom: 10,
-            }}
+            className="form__field"
           />
           <TextField
             id="password"
@@ -90,17 +84,11 @@ const Login = ({ mutate, mutateRegister, generalError }) => {
                 message: "Password field cannot be empty",
               },
             })}
-            style={{
-              marginTop: 10,
-              marginBottom: 10,
-            }}
+            className="form__field"
           />
 
           <Button
-            style={{
-              marginTop: 20,
-              marginBottom: 20,
-            }}
+            className="form__button"
             type="submit"
             variant="contained"
           >
@@ -109,7 +97,7 @@ const Login = ({ mutate, mutateRegister, generalError }) => {
         </form>
 
         <Button
-          className="formMessage"
+          className="form__message"
           onClick={
             formType === "login"
               ? () => {

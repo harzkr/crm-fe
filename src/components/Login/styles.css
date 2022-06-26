@@ -1,8 +1,8 @@
-.outerForm{
+.outer__form{
     background-color: #333;
 }
 
-.formContainer {
+.form__container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,25 +23,35 @@
     margin-bottom: 10px;
 }
 
-.formMessage{
-    margin-top: 10px;
-    margin-bottom: 10px;
+.form__message{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
     color: rgb(213, 233, 66) !important;
-    cursor:pointer;
-    font-size: 4px;
+    cursor:pointer !important;
+    font-size: 12px !important;
 }
 
 .button{
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
 }
 
-.formError{
-    color:red;
-    font-size: 8px;
+.form__error{
+    color:red !important;
+    font-size: 8px !important;
 }
 
-.pageTitle{
+.page__title{
     margin-bottom: 40px !important;
-    color: white;
+    color: white !important;
+}
+
+.form__field{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.form__button{
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
 }
