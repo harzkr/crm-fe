@@ -51,7 +51,7 @@ const DashboardContainer = () => {
     hasPreviousPage,
   } = useInfiniteQuery("users", getAllUsers, {
     getNextPageParam: (lastPage, pages) => {
-      return lastPage.data.nextPage;
+      return lastPage && lastPage.data ? lastPage.data.nextPage : undefined;
     },
   });
   const { mutate, data: dataConversation } = useMutation(createConversation);
