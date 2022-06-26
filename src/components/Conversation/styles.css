@@ -15,7 +15,7 @@
 }
 
 .conversation__message__right{
-    margin-top: 12px;
+    margin-top: 16px;
     padding: 6px !important;
     display: flex;
     border: 1px solid #fdfbf7;
@@ -27,7 +27,7 @@
 }
 
 .conversation__message__left{
-    margin-top: 12px;
+    margin-top: 16px;
     padding: 6px !important;
     display: flex;
     border: 1px solid #fdfbf7;
