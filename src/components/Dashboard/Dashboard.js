@@ -145,7 +145,7 @@ const Dashboard = ({
                   </Typography>
                   <Typography className="user__email">{user.email}</Typography>
 
-                  <Typography className="last__message_tag">
+                  <Typography className="last__message__tag">
                     {getMessageTag(user)}
                   </Typography>
                 </CardContent>
@@ -161,7 +161,7 @@ const Dashboard = ({
       {hasNextPage && (
         <div className="load__more">
           <Button
-            style={{ marginTop: 24,marginBottom:24 }}
+            className="load__more__button"
             variant="contained"
             size="medium"
             onClick={fetchNextPage}
