@@ -2,17 +2,7 @@ import React from "react";
 import { Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
-
-const days_map = {
-  0: "Sunday",
-  1: "Monday",
-  2: "Tuesday",
-  3: "Wednesday",
-  4: "Thursday",
-  5: "Friday",
-  6: "Saturday",
-  7: "Sunday",
-};
+import { days_map } from "../../utils/constants";
 
 const Conversation = ({
   createMessage,
@@ -55,6 +45,27 @@ const Conversation = ({
       setLatestMessage(text);
     }
   };
+
+  const messageRender = (message) => (
+    <div
+      className={
+        message.sender === userId
+          ? "conversation__message__right"
+          : "conversation__message__left"
+      }
+    >
+      <Typography variant="body1" className="text__content">
+        {message.content}
+      </Typography>
+      <Typography variant="caption" className="text__time">
+        {new Date(message.createdAt).toLocaleString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        })}
+      </Typography>
+    </div>
+  );
 
   React.useEffect(() => {
     handleScroll();
@@ -112,37 +123,12 @@ const Conversation = ({
                   alignItems: message.sender === userId ? "end" : "start",
                 }}
               >
-                <div
-                  className={
-                    message.sender === userId
-                      ? "conversation__message__right"
-                      : "conversation__message__left"
-                  }
-                >
-                  <Typography
-                    variant="body1"
-                    className="text__content"
-                  >
-                    {message.content}
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    className="text__time"
-                  >
-                    {new Date(message.createdAt).toLocaleString("en-US", {
-                      hour: "numeric",
-                      minute: "numeric",
-                      hour12: true,
-                    })}
-                  </Typography>
-                </div>
+                {messageRender(message)}
                 {page.data.results[j + 1] !== undefined &&
                 new Date(message.createdAt).getDay() !==
                   new Date(page.data.results[j + 1].createdAt).getDay() ? (
                   <>
-                    <div
-                      className="day__divider"
-                    >
+                    <div className="day__divider">
                       <Typography variant="h6" className="dash__color">
                         --{" "}
                         {

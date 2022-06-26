@@ -4,12 +4,14 @@ import Dashboard from "./Dashboard";
 import { ApiResponse } from "../../utils/ApiResponse";
 import { useNavigate } from "react-router-dom";
 
+const LIMIT = 20;
+
 const DashboardContainer = () => {
   const navigate = useNavigate();
   const getAllUsers = async ({ pageParam = 1 }) => {
     try {
       const response = await ApiResponse("get", "/v1/users/all-users", {
-        params: { page: pageParam, limit: 20 },
+        params: { page: pageParam, limit: LIMIT },
       });
       return response;
     } catch (err) {
