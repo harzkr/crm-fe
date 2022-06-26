@@ -90,6 +90,7 @@ const Conversation = ({
     return () => (window.onscroll = null);
   }, [pageNo, maxPage, isFetching, setPageNo, fetchNextPage, hasNextPage, dataMessages]);
 
+  console.log(message)
   return (
     <div
       style={{
@@ -138,7 +139,7 @@ const Conversation = ({
                         }
                   }
                 >
-                  <Typography variant="body1" style={{ color: "white" }}>
+                  <Typography variant="body1" style={{ color: "white", whiteSpace:'pre-line' }}>
                     {message.content}
                   </Typography>
                   <Typography
@@ -176,6 +177,8 @@ const Conversation = ({
           }}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          multiline={true}
+          rows={1}
         />
         <Button
           style={{ marginLeft: 8, marginTop: 8 }}
