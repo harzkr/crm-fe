@@ -121,13 +121,13 @@ const Conversation = ({
                 >
                   <Typography
                     variant="body1"
-                    style={{ color: "white", whiteSpace: "pre-line" }}
+                    className="text__content"
                   >
                     {message.content}
                   </Typography>
                   <Typography
                     variant="caption"
-                    style={{ color: "white", marginTop: 12, marginLeft: 24 }}
+                    className="text__time"
                   >
                     {new Date(message.createdAt).toLocaleString("en-US", {
                       hour: "numeric",
@@ -167,16 +167,14 @@ const Conversation = ({
       <div className="textbox__container">
         <TextField
           label="Type your message"
-          style={{
-            width: "calc(100vw - 200px)",
-          }}
+          className="textbox__field"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           multiline={true}
           rows={1}
         />
         <Button
-          style={{ marginLeft: 8, marginTop: 8 }}
+          className="button__gutter"
           variant="contained"
           color="primary"
           onClick={() => sendMessage()}
@@ -184,7 +182,7 @@ const Conversation = ({
           Send
         </Button>
         <Button
-          style={{ marginLeft: 8, marginTop: 8 }}
+          className="button__gutter"
           variant="contained"
           color="secondary"
           onClick={() => navigate(-1)}

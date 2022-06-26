@@ -51,3 +51,26 @@
     bottom: 12px; 
     left: 12px;
 }
+
+.textbox__field{
+    width: calc(100vw - 200px) !important;
+}
+
+.button__gutter{
+    margin-left: 8px !important;
+    margin-top: 8px !important;
+}
+
+.text__content{
+    color: white !important; 
+    white-space: pre-line !important;
+}
+
+.text__time{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    color: white !important;
+    margin-top: 12px !important;
+    margin-left: 24px !important;
+}
