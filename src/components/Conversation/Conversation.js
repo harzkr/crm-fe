@@ -143,7 +143,7 @@ const Conversation = ({
                     <div
                       className="day__divider"
                     >
-                      <Typography variant="h6" style={{ color: "white" }}>
+                      <Typography variant="h6" className="dash__color">
                         --{" "}
                         {
                           days_map[
