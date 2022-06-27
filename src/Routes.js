@@ -11,6 +11,7 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Conversation from "./components/Conversation";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Admin from "./components/Admin";
 
 const darkTheme = createTheme({
   palette: {
@@ -38,6 +39,7 @@ const routes = () => {
           <Route element={<RequireAuth />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/conversation/:id" element={<Conversation />} />
+            <Route path="/admin" element={<Admin/>} />
           </Route>
         </Routes>
       </Router>
