@@ -1,3 +1,3 @@
 import AdminContainer from "./AdminContainer";
 
-export default <AdminContainer/>;
+export default AdminContainer;

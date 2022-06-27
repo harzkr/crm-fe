@@ -97,7 +97,7 @@ const Dashboard = ({
   return (
     <div className="outer">
       <div>
-        <Button variant="contained">
+        <Button onClick={()=>navigate('/admin')} variant="contained">
           Admin
         </Button>
       </div>
