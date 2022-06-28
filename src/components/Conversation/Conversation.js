@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Button,
   TextField,
   Typography,
   AppBar,
@@ -10,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import { days_map } from "../../utils/constants";
-import { ArrowBack, Send, SendRounded } from "@mui/icons-material";
+import { ArrowBack, SendRounded } from "@mui/icons-material";
 
 const Conversation = ({
   createMessage,
@@ -89,7 +88,7 @@ const Conversation = ({
         }
       }
     }
-  }, [conversationData]);
+  }, [conversationData, userId]);
   
 
   React.useEffect(() => {
@@ -111,7 +110,9 @@ const Conversation = ({
     if (createdMessage) {
       refetchLatest();
 
-      handleScroll();
+      setTimeout(() => {
+        handleScroll();
+      },1000)
     }
   }, [createdMessage, refetchLatest]);
 
