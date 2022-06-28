@@ -10,7 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import { days_map } from "../../utils/constants";
-import { ArrowBack } from "@mui/icons-material";
+import { ArrowBack, Send, SendRounded } from "@mui/icons-material";
 
 const Conversation = ({
   createMessage,
@@ -199,14 +199,17 @@ const Conversation = ({
           multiline={true}
           rows={1}
         />
-        <Button
-          className="button__gutter"
-          variant="contained"
-          color="primary"
-          onClick={() => sendMessage()}
-        >
-          Send
-        </Button>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            onClick={() => sendMessage()}
+            className="button__gutter"
+          >
+            <SendRounded />
+          </IconButton>
       </div>
     </div>
   );

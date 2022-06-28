@@ -58,7 +58,8 @@
 
 .button__gutter{
     margin-left: 8px !important;
-    margin-top: 8px !important;
+    margin-top: 6px !important;
+    color: white !important;
 }
 
 .text__content{
