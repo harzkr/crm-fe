@@ -80,11 +80,13 @@ const Conversation = ({
   React.useEffect(() => {
     if (conversationData) {
       const { participants } = conversationData;
-
-      if(participants[0].userId === userId) {
-        setOtherUsername(participants[1].name);
-      } else{
-        setOtherUsername(participants[0].name);
+      
+      if(participants && participants.length > 0){
+        if(participants[0].userId === userId) {
+          setOtherUsername(participants[1].name);
+        } else{
+          setOtherUsername(participants[0].name);
+        }
       }
     }
   }, [conversationData]);
