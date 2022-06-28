@@ -96,11 +96,11 @@ const Dashboard = ({
 
   return (
     <div className="outer">
-      <div>
+      {/*<div>
         <Button onClick={()=>navigate('/admin')} variant="contained">
           Admin
         </Button>
-      </div>
+  </div>*/}
       <div className="welcome__tag">
         <Typography variant="h3" className="title">
           Welcome!

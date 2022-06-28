@@ -100,6 +100,7 @@ const Conversation = ({
 
       if (latestMessage !== lastMessage) {
         handleScroll();
+        setLatestMessage(lastMessage);
       }
     }
   }, [dataMessages, latestMessage]);
