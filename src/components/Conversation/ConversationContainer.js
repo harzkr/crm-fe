@@ -1,5 +1,5 @@
 import React from "react";
-import { useInfiniteQuery, useMutation } from "react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "react-query";
 import Conversation from "./Conversation";
 import { ApiResponse } from "../../utils/ApiResponse";
 import { useParams } from "react-router-dom";
@@ -29,6 +29,19 @@ const ConversationContainer = () => {
       console.log(err.data.message);
     }
   };
+
+  const getConversation = async () => {
+    try {
+      const response = await ApiResponse(`get`, `/v1/conversations/get/${id}`, {
+        params: { id },
+      });
+      return response;
+    } catch (err) {
+      console.log(err.data.message);
+    }
+  };
+
+  const { data: conversationData } = useQuery("conversation", getConversation);
 
   const { mutate, data: createdMessage } = useMutation(createMessage);
 
@@ -79,6 +92,7 @@ const ConversationContainer = () => {
     hasNextPage,
     refetchLatest,
     createdMessage,
+    conversationData
   };
   return <Conversation {..._props} />;
 };
