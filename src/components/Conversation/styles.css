@@ -48,8 +48,11 @@
 
 .textbox__container{
     position: fixed; 
-    bottom: 12px; 
+    bottom: 0px; 
     left: 12px;
+    padding-bottom: 8px;
+    background-color: #333;
+    width: 100vw;
 }
 
 .textbox__field{
@@ -78,4 +81,10 @@
 
 .dash__color{
     color: white !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .textbox__field{
+        width: calc(100vw - 90px) !important;
+    }
 }
