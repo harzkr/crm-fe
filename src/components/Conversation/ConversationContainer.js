@@ -92,7 +92,7 @@ const ConversationContainer = () => {
     hasNextPage,
     refetchLatest,
     createdMessage,
-    conversationData
+    conversationData: conversationData ? conversationData.data : {},
   };
   return <Conversation {..._props} />;
 };

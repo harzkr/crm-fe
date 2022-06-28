@@ -24,6 +24,7 @@ const Conversation = ({
   hasNextPage,
   refetchLatest,
   createdMessage,
+  conversationData
 }) => {
   const navigate = useNavigate();
   const [message, setMessage] = React.useState("");
@@ -31,6 +32,7 @@ const Conversation = ({
   const [userId] = React.useState(localStorage.getItem("userId"));
 
   const [latestMessage, setLatestMessage] = React.useState("");
+  const [otherUsername, setOtherUsername] = React.useState("");
 
   const handleScroll = () => {
     window.scroll({
@@ -74,6 +76,19 @@ const Conversation = ({
       </Typography>
     </div>
   );
+
+  React.useEffect(() => {
+    if (conversationData) {
+      const { participants } = conversationData;
+
+      if(participants[0].userId === userId) {
+        setOtherUsername(participants[1].name);
+      } else{
+        setOtherUsername(participants[0].name);
+      }
+    }
+  }, [conversationData]);
+  
 
   React.useEffect(() => {
     handleScroll();
@@ -133,7 +148,7 @@ const Conversation = ({
             <ArrowBack />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Name of the user
+            {otherUsername}
           </Typography>
         </Toolbar>
       </AppBar>
