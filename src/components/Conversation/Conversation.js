@@ -1,8 +1,16 @@
 import React from "react";
-import { Button, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Typography,
+  AppBar,
+  IconButton,
+  Toolbar,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import { days_map } from "../../utils/constants";
+import { ArrowBack } from "@mui/icons-material";
 
 const Conversation = ({
   createMessage,
@@ -112,6 +120,23 @@ const Conversation = ({
 
   return (
     <div className="conversation__outer">
+      <AppBar position="sticky">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            onClick={() => navigate(-1)}
+          >
+            <ArrowBack />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Name of the user
+          </Typography>
+        </Toolbar>
+      </AppBar>
       <div className="margin__gutter">
         {dataMessages.map((page, i) => (
           <React.Fragment key={i}>
@@ -166,14 +191,6 @@ const Conversation = ({
           onClick={() => sendMessage()}
         >
           Send
-        </Button>
-        <Button
-          className="button__gutter"
-          variant="contained"
-          color="secondary"
-          onClick={() => navigate(-1)}
-        >
-          Exit
         </Button>
       </div>
     </div>
