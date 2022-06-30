@@ -8,23 +8,29 @@ const AdminContainer = () => {
 
   const generalDataUsers = async (page) => {
     try {
-      const response = await ApiResponse("get", "v1/users/general-data-users", {
-        params: { page: page },
-      });
+      const response = await ApiResponse(
+        "get",
+        "/v1/users/general-data-users",
+        {
+          params: { page: page },
+        }
+      );
       return response;
     } catch (err) {
-      console.log(err.data.message);
+      console.log(err);
     }
   };
 
-  const { data, isLoading, error } = useQuery(
+  const { data, isLoading } = useQuery(
     ["generalDataUsers", page],
     () => generalDataUsers(page),
     { keepPreviousData: true }
   );
 
+  console.log(data);
+
   const _props = {
-    data: data,
+    data: data && data.data ? data.data.docs : [],
     isLoading: isLoading,
     setPage: setPage,
   };
