@@ -7,16 +7,13 @@ const AdminContainer = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  const generalDataUsers = async ({
-    page,
-    rowsPerPage,
-  }) => {
+  const generalDataUsers = async ({ page, rowsPerPage }) => {
     try {
       const response = await ApiResponse(
         "get",
         "/v1/users/general-data-users",
         {
-          params: { page: page+1, limit: rowsPerPage },
+          params: { page: page + 1, limit: rowsPerPage },
         }
       );
       return response;
@@ -31,8 +28,6 @@ const AdminContainer = () => {
     { keepPreviousData: true }
   );
 
-  console.log(data);
-
   const _props = {
     data: data && data.data ? data.data.docs : [],
     isLoading: isLoading,
@@ -40,7 +35,7 @@ const AdminContainer = () => {
     setPage,
     setRowsPerPage,
     rowsPerPage,
-    currentPage:page
+    currentPage: page,
   };
 
   return <Admin {..._props} />;
