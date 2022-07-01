@@ -85,7 +85,14 @@ const TablePaginationActions = (props) => {
   );
 };
 
-const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPage,currentPage }) => {
+const Admin = ({
+  data,
+  totalCount,
+  setPage,
+  setRowsPerPage,
+  rowsPerPage,
+  currentPage,
+}) => {
   const columns = React.useMemo(
     () => [
       {
@@ -126,31 +133,15 @@ const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPa
     []
   );
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    prepareRow,
-    page, // Instead of using 'rows', we'll use page,
-    // which has only the rows for the active page
-
-    // The rest of these things are super handy, too ;)
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns,
-      data,
-      initialState: { pageIndex: 0 },
-    },
-    usePagination
-  );
+  const { getTableProps, getTableBodyProps, headerGroups, prepareRow, page } =
+    useTable(
+      {
+        columns,
+        data,
+        initialState: { pageIndex: 0 },
+      },
+      usePagination
+    );
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -160,6 +151,8 @@ const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPa
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  console.log(pageIndex, pageSize);
 
   return (
     <div>
