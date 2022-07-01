@@ -104,7 +104,9 @@ const Admin = ({ data, isLoading, pageCount, pagination, setPagination }) => {
                 <TableRow {...row.getRowProps()}>
                   {row.cells.map((cell) => {
                     return (
-                      <TableCell {...cell.getCellProps()}>{cell.render("Cell")}</TableCell>
+                      <TableCell {...cell.getCellProps()}>
+                        {cell.render("Cell")}
+                      </TableCell>
                     );
                   })}
                 </TableRow>
