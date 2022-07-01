@@ -36,9 +36,11 @@ const AdminContainer = () => {
   const _props = {
     data: data && data.data ? data.data.docs : [],
     isLoading: isLoading,
-    pageCount: data && data.data ? data.data.totalPages : 0,
+    totalCount: data && data.data ? data.data.totalDocs : 0,
     setPage,
     setRowsPerPage,
+    rowsPerPage,
+    currentPage:page
   };
 
   return <Admin {..._props} />;

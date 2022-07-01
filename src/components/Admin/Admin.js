@@ -23,7 +23,7 @@ import {
   KeyboardArrowRight,
 } from "@mui/icons-material";
 
-const TablePaginationActions = () => {
+const TablePaginationActions = (props) => {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -85,7 +85,7 @@ const TablePaginationActions = () => {
   );
 };
 
-const Admin = ({ data, isLoading, pageCount, setPage, setRowsPerPage }) => {
+const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPage,currentPage }) => {
   const columns = React.useMemo(
     () => [
       {
@@ -200,9 +200,9 @@ const Admin = ({ data, isLoading, pageCount, setPage, setRowsPerPage }) => {
               <TablePagination
                 rowsPerPageOptions={[10, 20, 50]}
                 colSpan={3}
-                count={pageCount}
+                count={totalCount}
                 rowsPerPage={rowsPerPage}
-                page={page}
+                page={currentPage}
                 SelectProps={{
                   inputProps: {
                     "aria-label": "rows per page",
