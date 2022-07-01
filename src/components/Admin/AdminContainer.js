@@ -4,15 +4,26 @@ import { useQuery } from "react-query";
 import { ApiResponse } from "../../utils/ApiResponse";
 
 const AdminContainer = () => {
-  const [page, setPage] = React.useState(1);
+  const [{ pageIndex, pageSize }, setPagination] = React.useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
 
-  const generalDataUsers = async (page) => {
+  const fetchDataOptions = {
+    pageIndex,
+    pageSize,
+  }
+
+  const generalDataUsers = async ({
+    pageIndex,
+    pageSize,
+  }) => {
     try {
       const response = await ApiResponse(
         "get",
         "/v1/users/general-data-users",
         {
-          params: { page: page },
+          params: { page: pageIndex+1, limit: pageSize },
         }
       );
       return response;
@@ -21,9 +32,17 @@ const AdminContainer = () => {
     }
   };
 
+  const pagination = React.useMemo(
+    () => ({
+      pageIndex,
+      pageSize,
+    }),
+    [pageIndex, pageSize]
+  )
+
   const { data, isLoading } = useQuery(
-    ["generalDataUsers", page],
-    () => generalDataUsers(page),
+    ["generalDataUsers", fetchDataOptions],
+    () => generalDataUsers(fetchDataOptions),
     { keepPreviousData: true }
   );
 
@@ -32,7 +51,9 @@ const AdminContainer = () => {
   const _props = {
     data: data && data.data ? data.data.docs : [],
     isLoading: isLoading,
-    setPage: setPage,
+    setPage: setPagination,
+    pageCount: data && data.data ? data.data.totalPages : 0,
+    pagination
   };
 
   return <Admin {..._props} />;

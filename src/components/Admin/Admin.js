@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import { Typography } from "@mui/material";
 import "./styles.css";
-import MaterialReactTable from "material-react-table";
 
-const Admin = ({ data, isLoading }) => {
-  const columns = useMemo(
+const Admin = ({ data, isLoading, pageCount, pagination, setPagination }) => {
+  const columns = React.useMemo(
     () => [
       {
         header: "Name",
@@ -40,20 +39,13 @@ const Admin = ({ data, isLoading }) => {
     ],
     []
   );
-
+  
   return (
     <div>
       <div className="pageTitle">
         <Typography variant="h4">Admin</Typography>
       </div>
       <div>
-        <MaterialReactTable
-          columns={columns}
-          data={data}
-          state={{
-            isLoading,
-          }}
-        />
       </div>
     </div>
   );
