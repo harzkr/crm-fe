@@ -4,26 +4,19 @@ import { useQuery } from "react-query";
 import { ApiResponse } from "../../utils/ApiResponse";
 
 const AdminContainer = () => {
-  const [{ pageIndex, pageSize }, setPagination] = React.useState({
-    pageIndex: 0,
-    pageSize: 10,
-  });
-
-  const fetchDataOptions = {
-    pageIndex,
-    pageSize,
-  }
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const generalDataUsers = async ({
-    pageIndex,
-    pageSize,
+    page,
+    rowsPerPage,
   }) => {
     try {
       const response = await ApiResponse(
         "get",
         "/v1/users/general-data-users",
         {
-          params: { page: pageIndex+1, limit: pageSize },
+          params: { page: page+1, limit: rowsPerPage },
         }
       );
       return response;
@@ -32,17 +25,9 @@ const AdminContainer = () => {
     }
   };
 
-  const pagination = React.useMemo(
-    () => ({
-      pageIndex,
-      pageSize,
-    }),
-    [pageIndex, pageSize]
-  )
-
   const { data, isLoading } = useQuery(
-    ["generalDataUsers", fetchDataOptions],
-    () => generalDataUsers(fetchDataOptions),
+    ["generalDataUsers", { page, rowsPerPage }],
+    () => generalDataUsers({ page, rowsPerPage }),
     { keepPreviousData: true }
   );
 
@@ -51,9 +36,9 @@ const AdminContainer = () => {
   const _props = {
     data: data && data.data ? data.data.docs : [],
     isLoading: isLoading,
-    setPage: setPagination,
     pageCount: data && data.data ? data.data.totalPages : 0,
-    pagination
+    setPage,
+    setRowsPerPage,
   };
 
   return <Admin {..._props} />;
