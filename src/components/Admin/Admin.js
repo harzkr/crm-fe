@@ -109,7 +109,6 @@ const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPa
         Header: "Last Active",
         id: "last_activity",
         accessor: "last_activity",
-        id: "last_activity",
         Cell: ({ cell }) => {
           return (
             <Typography variant="body2">
