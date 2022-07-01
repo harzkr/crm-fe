@@ -1,4 +1,6 @@
 import React from "react";
+import { useTable, usePagination } from "react-table";
+import { useNavigate } from "react-router-dom";
 import {
   Typography,
   Table,
@@ -12,16 +14,16 @@ import {
   TablePagination,
   IconButton,
   Box,
+  Button,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import "./styles.css";
-import { useTable, usePagination } from "react-table";
 import {
   FirstPage as FirstPageIcon,
   LastPage as LastPageIcon,
   KeyboardArrowLeft,
   KeyboardArrowRight,
 } from "@mui/icons-material";
+import { useTheme } from "@mui/material/styles";
+import "./styles.css";
 
 const TablePaginationActions = (props) => {
   const theme = useTheme();
@@ -85,25 +87,34 @@ const TablePaginationActions = (props) => {
   );
 };
 
-const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPage,currentPage }) => {
+const Admin = ({
+  data,
+  totalCount,
+  setPage,
+  setRowsPerPage,
+  rowsPerPage,
+  currentPage,
+}) => {
+  const navigate = useNavigate();
+
   const columns = React.useMemo(
     () => [
       {
         Header: "Name",
-        accessor: "name"
+        accessor: "name",
       },
       {
         Header: "Email",
-        accessor: "email"
+        accessor: "email",
       },
       {
         Header: "Conversations",
-        accessor: "conv_count"
+        accessor: "conv_count",
       },
       {
         Header: "Messages",
         accessor: "msg_count",
-        id: "msg_count"
+        id: "msg_count",
       },
       {
         Header: "Last Active",
@@ -131,7 +142,7 @@ const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPa
     headerGroups,
     prepareRow,
     page,
-    setPageSize
+    setPageSize,
   } = useTable(
     {
       columns,
@@ -151,15 +162,14 @@ const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPa
     setPage(0);
   };
 
-  console.log(data,'check')
-
   return (
     <div>
       <div className="pageTitle">
         <Typography variant="h4">Admin</Typography>
       </div>
+      <Button onClick={() => navigate(-1)}>Exit</Button>
       <TableContainer component={Paper}>
-        <Table style={{height:'90vh'}}  {...getTableProps()}>
+        <Table style={{ height: "90vh" }} {...getTableProps()}>
           <TableHead>
             {headerGroups.map((headerGroup) => (
               <TableRow {...headerGroup.getHeaderGroupProps()}>
