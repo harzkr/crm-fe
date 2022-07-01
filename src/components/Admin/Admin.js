@@ -167,7 +167,18 @@ const Admin = ({
       <div className="pageTitle">
         <Typography variant="h4">Admin</Typography>
       </div>
-      <Button onClick={() => navigate(-1)}>Exit</Button>
+      <Button
+        variant="text"
+        style={{
+          color: "black",
+          position: "fixed",
+          right: "10px",
+          top: "10px",
+        }}
+        onClick={() => navigate(-1)}
+      >
+        Exit
+      </Button>
       <TableContainer component={Paper}>
         <Table style={{ height: "90vh" }} {...getTableProps()}>
           <TableHead>
