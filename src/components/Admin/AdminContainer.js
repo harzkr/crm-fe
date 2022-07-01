@@ -8,6 +8,7 @@ const AdminContainer = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const generalDataUsers = async ({ page, rowsPerPage }) => {
+    console.log('calling with',page, rowsPerPage)
     try {
       const response = await ApiResponse(
         "get",

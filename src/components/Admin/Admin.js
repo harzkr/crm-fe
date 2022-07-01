@@ -90,20 +90,20 @@ const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPa
     () => [
       {
         Header: "Name",
-        accessor: "name",
+        accessor: "name"
       },
       {
         Header: "Email",
-        accessor: "email",
+        accessor: "email"
       },
       {
         Header: "Conversations",
-        accessor: "conv_count",
+        accessor: "conv_count"
       },
       {
         Header: "Messages",
         accessor: "msg_count",
-        id: "msg_count",
+        id: "msg_count"
       },
       {
         Header: "Last Active",
@@ -130,7 +130,8 @@ const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPa
     getTableBodyProps,
     headerGroups,
     prepareRow,
-    page
+    page,
+    setPageSize
   } = useTable(
     {
       columns,
@@ -146,8 +147,11 @@ const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPa
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
+    setPageSize(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  console.log(data,'check')
 
   return (
     <div>
@@ -155,7 +159,7 @@ const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPa
         <Typography variant="h4">Admin</Typography>
       </div>
       <TableContainer component={Paper}>
-        <Table {...getTableProps()}>
+        <Table style={{height:'90vh'}}  {...getTableProps()}>
           <TableHead>
             {headerGroups.map((headerGroup) => (
               <TableRow {...headerGroup.getHeaderGroupProps()}>
@@ -187,7 +191,6 @@ const Admin = ({ data, isLoading, totalCount, setPage, setRowsPerPage, rowsPerPa
             <TableRow>
               <TablePagination
                 rowsPerPageOptions={[10, 20, 50]}
-                colSpan={3}
                 count={totalCount}
                 rowsPerPage={rowsPerPage}
                 page={currentPage}
