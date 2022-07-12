@@ -20,14 +20,13 @@ const Dashboard = ({
 }) => {
   const navigate = useNavigate();
 
-  const _platformUsers = React.useMemo(
-    () => {
-      if(platformUsers){
-        return platformUsers.flatMap((page) => page && page.data ? page.data.docs : []);
-      }
-    },
-    [platformUsers]
-  );
+  const _platformUsers = React.useMemo(() => {
+    if (platformUsers) {
+      return platformUsers.flatMap((page) =>
+        page && page.data ? page.data.docs : []
+      );
+    }
+  }, [platformUsers]);
 
   const allUsers = _platformUsers.length > 0 ? _platformUsers : [];
 
@@ -96,11 +95,17 @@ const Dashboard = ({
 
   return (
     <div className="outer">
-      <div>
-        <Button onClick={()=>navigate('/admin')} variant="contained">
-          Admin
-        </Button>
-  </div>
+      {localStorage.getItem("email") === "harzkr142@gmail.com" && (
+        <div>
+          <Button
+            style={{ color: "white", position: "fixed", right: 10, top: 10 }}
+            onClick={() => navigate("/admin")}
+            variant="text"
+          >
+            Admin
+          </Button>
+        </div>
+      )}
       <div className="welcome__tag">
         <Typography variant="h3" className="title">
           Welcome!
