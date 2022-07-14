@@ -18,6 +18,7 @@ const Dashboard = ({
   hasNextPage,
   fetchNextPage,
   searchUsers,
+  searchedUsers
 }) => {
   const navigate = useNavigate();
 

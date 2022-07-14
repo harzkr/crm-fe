@@ -86,6 +86,7 @@ const DashboardContainer = () => {
     hasNextPage,
     hasPreviousPage,
     searchUsers: searchUsersMutate,
+    searchedUsers: dataSearchUsers ? dataSearchUsers.data : null,
   };
 
   return <Dashboard {..._props} />;
