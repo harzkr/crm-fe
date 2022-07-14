@@ -35,9 +35,6 @@ const Dashboard = ({
 
   const selectFilter = (val) => {
     if (val) {
-      if(val.length > 1){
-        searchUsers({searchTerm: val});
-      }
       let _filtered = allUsers.filter((user) => user.name === val);
 
       if (_filtered) {
@@ -47,6 +44,12 @@ const Dashboard = ({
       setFiltered([]);
     }
   };
+
+  const selectSearch = (val) => {
+    if(val.length > 1){
+      searchUsers({ searchTerm: val });
+    }
+  }
 
   const handleConversationNav = async (user) => {
     if (user.conversations.length > 0) {
@@ -128,6 +131,7 @@ const Dashboard = ({
           )}
           className="autocomplete__input"
           onChange={(event, value) => selectFilter(value)}
+          onInputChange={(event, value) => selectSearch(value)}
         />
       </div>
       {filtered.length > 0 ? (
