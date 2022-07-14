@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  useTable,
-  usePagination,
-  useFilters,
-  useSortBy,
-} from "react-table";
+import { useTable, usePagination, useFilters, useSortBy } from "react-table";
 import { matchSorter } from "match-sorter";
 import { useNavigate } from "react-router-dom";
 import {
@@ -31,6 +26,8 @@ import {
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import "./styles.css";
+
+const filterableColumns = ['Name', 'Email'];
 
 const TablePaginationActions = (props) => {
   const theme = useTheme();
@@ -253,9 +250,11 @@ const Admin = ({
                 {headerGroup.headers.map((column) => (
                   <TableCell {...column.getHeaderProps()}>
                     {column.render("Header")}
-                    <div>
-                      {column.canFilter ? column.render("Filter") : null}
-                    </div>
+                    {(filterableColumns.includes(column.Header)) && (
+                      <div>
+                        {column.canFilter ? column.render("Filter") : null}
+                      </div>
+                    )}
                   </TableCell>
                 ))}
               </TableRow>
