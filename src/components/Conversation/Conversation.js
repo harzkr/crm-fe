@@ -136,7 +136,7 @@ const Conversation = ({
     });
     setSocket(newSocket);
     return () => newSocket.close();
-  }, [setSocket]);
+  }, [setSocket, conversationId]);
 
   React.useEffect(() => {
     if (socket) {
