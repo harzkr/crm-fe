@@ -18,7 +18,7 @@ const Dashboard = ({
   hasNextPage,
   fetchNextPage,
   searchUsers,
-  searchedUsers
+  searchedUsers,
 }) => {
   const navigate = useNavigate();
 
@@ -47,10 +47,12 @@ const Dashboard = ({
   };
 
   const selectSearch = (val) => {
-    if(val.length > 1){
+    if (val.length > 1) {
       searchUsers({ searchTerm: val });
+    } else {
+      setFiltered([]);
     }
-  }
+  };
 
   const handleConversationNav = async (user) => {
     if (user.conversations.length > 0) {
@@ -101,6 +103,12 @@ const Dashboard = ({
     }
   }, [dataConversation, navigate]);
 
+  React.useEffect(() => {
+    if (searchedUsers.length > 0) {
+      setFiltered(searchedUsers);
+    }
+  }, [searchedUsers]);
+
   return (
     <div className="outer">
       {localStorage.getItem("email") === "harzkr142@gmail.com" && (
@@ -126,7 +134,7 @@ const Dashboard = ({
         <Autocomplete
           id="free-solo-demo"
           freeSolo
-          options={allUsers.map((option) => option.name)}
+          options={searchedUsers.map((option) => option.name)}
           renderInput={(params) => (
             <TextField {...params} label="Search for users" />
           )}
@@ -153,7 +161,7 @@ const Dashboard = ({
         </div>
       )}
 
-      {hasNextPage && (
+      {hasNextPage && filtered.length === 0 && (
         <div className="load__more">
           <Button
             className="load__more__button"
