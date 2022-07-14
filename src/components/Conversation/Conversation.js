@@ -11,6 +11,7 @@ import "./styles.css";
 import { days_map } from "../../utils/constants";
 import { ArrowBack, SendRounded } from "@mui/icons-material";
 import { io } from "socket.io-client";
+import { server_url } from "../../utils/url";
 
 const Conversation = ({
   createMessage,
@@ -24,7 +25,7 @@ const Conversation = ({
   hasNextPage,
   refetchLatest,
   createdMessage,
-  conversationData
+  conversationData,
 }) => {
   const navigate = useNavigate();
   const [message, setMessage] = React.useState("");
@@ -35,28 +36,6 @@ const Conversation = ({
   const [otherUsername, setOtherUsername] = React.useState("");
 
   const [socket, setSocket] = React.useState(null);
-
-  React.useEffect(() => {
-    const newSocket = io(`http://localhost:8000/`, { query: `conversationId=${conversationId}` });
-    setSocket(newSocket);
-    return () => newSocket.close();
-  }, [setSocket]);
-
-  React.useEffect(() => {
-    if(socket){
-      socket.on("connect", () => {
-        //console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-      });
-
-      socket.on(conversationId, (data) => {
-        //console.log('received message', data);
-
-        if(data === 'fetch'){
-          refetchLatest();
-        }
-      });
-    }
-  }, [socket, conversationId, refetchLatest])
 
   const handleScroll = () => {
     window.scroll({
@@ -104,17 +83,16 @@ const Conversation = ({
   React.useEffect(() => {
     if (conversationData) {
       const { participants } = conversationData;
-      
-      if(participants && participants.length > 0){
-        if(participants[0].userId === userId) {
+
+      if (participants && participants.length > 0) {
+        if (participants[0].userId === userId) {
           setOtherUsername(participants[1].name);
-        } else{
+        } else {
           setOtherUsername(participants[0].name);
         }
       }
     }
   }, [conversationData, userId]);
-  
 
   React.useEffect(() => {
     handleScroll();
@@ -137,7 +115,7 @@ const Conversation = ({
 
       setTimeout(() => {
         handleScroll();
-      },1000)
+      }, 1000);
     }
   }, [createdMessage, refetchLatest]);
 
@@ -161,6 +139,28 @@ const Conversation = ({
     hasNextPage,
     dataMessages,
   ]);
+
+  React.useEffect(() => {
+    const newSocket = io(server_url + "/", {
+      query: `conversationId=${conversationId}`,
+    });
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, [setSocket]);
+
+  React.useEffect(() => {
+    if (socket) {
+      socket.on("connect", () => {
+        console.log("connected");
+      });
+
+      socket.on(conversationId, (data) => {
+        if (data === "fetch") {
+          refetchLatest();
+        }
+      });
+    }
+  }, [socket, conversationId, refetchLatest]);
 
   return (
     <div className="conversation__outer">
@@ -228,17 +228,17 @@ const Conversation = ({
           multiline={true}
           rows={1}
         />
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={() => sendMessage()}
-            className="button__gutter"
-          >
-            <SendRounded />
-          </IconButton>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+          onClick={() => sendMessage()}
+          className="button__gutter"
+        >
+          <SendRounded />
+        </IconButton>
       </div>
     </div>
   );
