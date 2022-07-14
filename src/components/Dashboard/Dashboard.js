@@ -33,10 +33,11 @@ const Dashboard = ({
   const allUsers = _platformUsers.length > 0 ? _platformUsers : [];
 
   const [filtered, setFiltered] = React.useState([]);
+  const [searchText, setSearchText] = React.useState("");
 
   const selectFilter = (val) => {
     if (val) {
-      let _filtered = allUsers.filter((user) => user.name === val);
+      let _filtered = filtered.filter((user) => user.name === val);
 
       if (_filtered) {
         setFiltered(_filtered);
@@ -47,6 +48,7 @@ const Dashboard = ({
   };
 
   const selectSearch = (val) => {
+    setSearchText(val);
     if (val.length > 1) {
       searchUsers({ searchTerm: val });
     } else {
@@ -134,7 +136,7 @@ const Dashboard = ({
         <Autocomplete
           id="free-solo-demo"
           freeSolo
-          options={searchedUsers.map((option) => option.name)}
+          options={filtered.map((option) => option.name)}
           renderInput={(params) => (
             <TextField {...params} label="Search for users" />
           )}
@@ -143,7 +145,7 @@ const Dashboard = ({
           onInputChange={(event, value) => selectSearch(value)}
         />
       </div>
-      {filtered.length > 0 ? (
+      {filtered.length > 0 && searchText.length > 0 ? (
         <div className="filtered__container">
           {filtered.map((user) => (
             <div key={user.email} className="user">
@@ -152,16 +154,30 @@ const Dashboard = ({
           ))}
         </div>
       ) : (
-        <div className="users__container">
-          {allUsers.map((user) => (
-            <div key={user.email} className="user">
-              {cardRender(user)}
+        <>
+          {searchText.length > 0 ? (
+            <div className="users__container">
+              <Typography
+                style={{ marginTop: 32 }}
+                variant="h5"
+                className="title"
+              >
+                No results
+              </Typography>
             </div>
-          ))}
-        </div>
+          ) : (
+            <div className="users__container">
+              {allUsers.map((user) => (
+                <div key={user.email} className="user">
+                  {cardRender(user)}
+                </div>
+              ))}
+            </div>
+          )}
+        </>
       )}
 
-      {hasNextPage && filtered.length === 0 && (
+      {hasNextPage && searchText.length === 0 && (
         <div className="load__more">
           <Button
             className="load__more__button"
