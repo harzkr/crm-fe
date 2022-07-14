@@ -29,6 +29,17 @@ const DashboardContainer = () => {
     }
   };
 
+  const searchUsers = async ({ searchTerm }) => {
+    try {
+      const response = await ApiResponse("get", "/v1/users/search-users", {
+        params: { searchTerm: searchTerm },
+      });
+      return response;
+    } catch (err) {
+      console.log(err.data.message);
+    }
+  }
+
   const createConversation = async (user) => {
     try {
       const response = await ApiResponse("post", "/v1/conversations/create", {
