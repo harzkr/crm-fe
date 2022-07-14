@@ -47,6 +47,10 @@ const Conversation = ({
       socket.on("connect", () => {
         console.log(socket.id); // x8WIv7-mJelg7on_ALbx
       });
+
+      socket.on(conversationId, (data) => {
+        console.log('received message', data);
+      });
     }
   }, [socket])
 
