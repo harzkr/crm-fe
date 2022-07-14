@@ -29,11 +29,9 @@ const DashboardContainer = () => {
     }
   };
 
-  const searchUsers = async ({ searchTerm }) => {
+  const searchUsers = async (data) => {
     try {
-      const response = await ApiResponse("get", "/v1/users/search-users", {
-        params: { searchTerm: searchTerm },
-      });
+      const response = await ApiResponse("post", "/v1/users/search-users", data);
       return response;
     } catch (err) {
       console.log(err.data.message);
@@ -73,8 +71,12 @@ const DashboardContainer = () => {
       return lastPage && lastPage.data ? lastPage.data.nextPage : undefined;
     },
   });
+
   const { mutate, data: dataConversation } = useMutation(createConversation);
 
+  const { mutate: searchUsersMutate, data: dataSearchUsers } = useMutation(searchUsers);
+
+  console.log(dataSearchUsers);
 
   const _props = {
     platformUsers: dataUsers ? dataUsers.pages : [],
@@ -83,6 +85,7 @@ const DashboardContainer = () => {
     fetchNextPage,
     hasNextPage,
     hasPreviousPage,
+    searchUsers: searchUsersMutate,
   };
 
   return <Dashboard {..._props} />;

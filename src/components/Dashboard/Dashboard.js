@@ -17,6 +17,7 @@ const Dashboard = ({
   dataConversation,
   hasNextPage,
   fetchNextPage,
+  searchUsers,
 }) => {
   const navigate = useNavigate();
 
@@ -34,6 +35,9 @@ const Dashboard = ({
 
   const selectFilter = (val) => {
     if (val) {
+      if(val.length > 1){
+        searchUsers({searchTerm: val});
+      }
       let _filtered = allUsers.filter((user) => user.name === val);
 
       if (_filtered) {

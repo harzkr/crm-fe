@@ -87,11 +87,7 @@ const Login = ({ mutate, mutateRegister, generalError }) => {
             className="form__field"
           />
 
-          <Button
-            className="form__button"
-            type="submit"
-            variant="contained"
-          >
+          <Button className="form__button" type="submit" variant="contained">
             {formType === "login" ? "Login" : "Signup"}
           </Button>
         </form>
