@@ -45,14 +45,18 @@ const Conversation = ({
   React.useEffect(() => {
     if(socket){
       socket.on("connect", () => {
-        console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+        //console.log(socket.id); // x8WIv7-mJelg7on_ALbx
       });
 
       socket.on(conversationId, (data) => {
-        console.log('received message', data);
+        //console.log('received message', data);
+
+        if(data === 'fetch'){
+          refetchLatest();
+        }
       });
     }
-  }, [socket])
+  }, [socket, conversationId, refetchLatest])
 
   const handleScroll = () => {
     window.scroll({

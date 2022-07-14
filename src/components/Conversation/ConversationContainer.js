@@ -75,11 +75,6 @@ const ConversationContainer = () => {
     refetch({ refetchPage: (page, index) => index === 0 });
   }, [refetch]);
 
-  React.useEffect(() => {
-    const timer = setInterval(refetchLatest, 10000);
-    return () => clearInterval(timer);
-  }, [refetchLatest]);
-
   const _props = {
     createMessage: mutate,
     conversationId: id,
