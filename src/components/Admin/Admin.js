@@ -28,7 +28,7 @@ import {
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import "./styles.css";
-import { column_arr, filterableColumns } from "./constants";
+import { column_arr, filterableColumns, sortableColumns } from "./constants";
 
 const TablePaginationActions = (props) => {
   const theme = useTheme();
@@ -219,13 +219,17 @@ const Admin = ({
                         {column.canFilter ? column.render("Filter") : null}
                       </div>
                     )}
-                    {column.Header === "Last Active" && (
+                    {sortableColumns.includes(column.Header) && (
                       <span style={{ marginLeft: 12 }}>
-                        {column.isSorted
-                          ? column.isSortedDesc
-                            ? <ArrowDropDown/>
-                            : <ArrowDropUp/>
-                          : ""}
+                        {column.isSorted ? (
+                          column.isSortedDesc ? (
+                            <ArrowDropDown style={{ marginTop: -12 }} />
+                          ) : (
+                            <ArrowDropUp style={{ marginTop: -12 }} />
+                          )
+                        ) : (
+                          ""
+                        )}
                       </span>
                     )}
                   </TableCell>

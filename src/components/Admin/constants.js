@@ -5,11 +5,13 @@ export const column_arr = [
       Header: "Name",
       accessor: "name",
       filter: "fuzzyText",
+      disableSortBy: true
     },
     {
       Header: "Email",
       accessor: "email",
       filter: "fuzzyText",
+      disableSortBy: true
     },
     {
       Header: "Conversations",
@@ -39,3 +41,4 @@ export const column_arr = [
 ]
 
 export const filterableColumns = ['Name', 'Email'];
+export const sortableColumns = ['Conversations', 'Messages', 'Last Active'];

@@ -30,10 +30,10 @@ const Login = ({ mutate, mutateRegister, generalError }) => {
         <Typography className="form__error">
           {generalError && <span className="error">{generalError}</span>}
         </Typography>
-        <Typography className="formError">
+        <Typography className="form__error">
           {errors.name && <span className="error">{errors.name.message}</span>}
         </Typography>
-        <Typography className="formError">
+        <Typography className="form__error">
           {errors.email && (
             <span className="error">{errors.email.message}</span>
           )}
