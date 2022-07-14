@@ -26,9 +26,7 @@ import {
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import "./styles.css";
-import column_arr from "./constants";
-
-const filterableColumns = ['Name', 'Email'];
+import { column_arr, filterableColumns } from "./constants";
 
 const TablePaginationActions = (props) => {
   const theme = useTheme();

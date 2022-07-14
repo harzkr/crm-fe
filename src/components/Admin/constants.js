@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 
-const column_arr = [
+export const column_arr = [
     {
       Header: "Name",
       accessor: "name",
@@ -38,4 +38,4 @@ const column_arr = [
     },
 ]
 
-export default column_arr;
+export const filterableColumns = ['Name', 'Email'];
