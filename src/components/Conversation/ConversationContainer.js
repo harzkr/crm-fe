@@ -3,9 +3,12 @@ import { useInfiniteQuery, useMutation, useQuery } from "react-query";
 import Conversation from "./Conversation";
 import { ApiResponse } from "../../utils/ApiResponse";
 import { useParams } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { updateMessages } from './redux/conversation';
 
 const ConversationContainer = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   const [pageNo, setPageNo] = React.useState(1);
   const [maxPage, setMaxPage] = React.useState(1);
@@ -24,6 +27,9 @@ const ConversationContainer = () => {
       const response = await ApiResponse("get", "/v1/messages/get", {
         params: { conversation: id, limit: 100, page: pageParam },
       });
+
+      dispatch(updateMessages(response?.data?.results));
+
       return response;
     } catch (err) {
       console.log(err.data.message);

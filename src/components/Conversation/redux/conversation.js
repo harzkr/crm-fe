@@ -15,6 +15,6 @@ export const conversationSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { update } = conversationSlice.actions
+export const { updateMessages } = conversationSlice.actions
 
 export default conversationSlice.reducer
