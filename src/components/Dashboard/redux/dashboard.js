@@ -9,7 +9,7 @@ export const dashboardSlice = createSlice({
   initialState,
   reducers: {
     update: (state, action) => {
-      state.users = action.payload;
+      state.users = state.users.concat(action.payload);
     },
   },
 })
