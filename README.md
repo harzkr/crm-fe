@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and has a ducks pattern structure for code. Within the src folder, the components holds all corresponding code divided structurally on the routes/components that they come forth and all corresponding dependencies particular to a route are present in the same folder
 
