@@ -23,6 +23,8 @@ import {
   LastPage as LastPageIcon,
   KeyboardArrowLeft,
   KeyboardArrowRight,
+  ArrowDropDown,
+  ArrowDropUp,
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import "./styles.css";
@@ -120,10 +122,7 @@ const Admin = ({
     []
   );
 
-  const columns = React.useMemo(
-    () => column_arr,
-    []
-  );
+  const columns = React.useMemo(() => column_arr, []);
 
   // Define a default UI for filtering
   const DefaultColumnFilter = ({
@@ -211,12 +210,23 @@ const Admin = ({
             {headerGroups.map((headerGroup) => (
               <TableRow {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                  <TableCell {...column.getHeaderProps()}>
+                  <TableCell
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                  >
                     {column.render("Header")}
-                    {(filterableColumns.includes(column.Header)) && (
+                    {filterableColumns.includes(column.Header) && (
                       <div>
                         {column.canFilter ? column.render("Filter") : null}
                       </div>
+                    )}
+                    {column.Header === "Last Active" && (
+                      <span style={{ marginLeft: 12 }}>
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? <ArrowDropDown/>
+                            : <ArrowDropUp/>
+                          : ""}
+                      </span>
                     )}
                   </TableCell>
                 ))}

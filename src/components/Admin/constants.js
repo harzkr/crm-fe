@@ -21,20 +21,20 @@ export const column_arr = [
       id: "msg_count",
     },
     {
-      Header: "Last Active",
-      id: "last_activity",
-      accessor: "last_activity",
-      Cell: ({ cell }) => {
-        return (
-          <Typography variant="body2">
-            {cell.row.original.last_activity
-              ? new Date(cell.row.original.last_activity).toLocaleString(
-                  "en-US"
-                )
-              : "Not Active"}
-          </Typography>
-        );
-      },
+        Header: "Last Active",
+        id: "last_activity",
+        accessor: "last_activity",
+        Cell: ({ cell }) => {
+          return (
+            <Typography variant="body2">
+              {cell.row.original.last_activity
+                ? new Date(cell.row.original.last_activity).toLocaleString(
+                    "en-US"
+                  )
+                : "Not Active"}
+            </Typography>
+          );
+        },
     },
 ]
 
