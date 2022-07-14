@@ -106,9 +106,7 @@ const Dashboard = ({
   }, [dataConversation, navigate]);
 
   React.useEffect(() => {
-    if (searchedUsers.length > 0) {
-      setFiltered(searchedUsers);
-    }
+    setFiltered(searchedUsers);
   }, [searchedUsers]);
 
   return (
