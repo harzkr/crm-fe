@@ -3,16 +3,22 @@ import { useInfiniteQuery, useMutation } from "react-query";
 import Dashboard from "./Dashboard";
 import { ApiResponse } from "../../utils/ApiResponse";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { update } from './redux/dashboard';
 
 const LIMIT = 20;
 
 const DashboardContainer = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
   const getAllUsers = async ({ pageParam = 1 }) => {
     try {
       const response = await ApiResponse("get", "/v1/users/all-users", {
         params: { page: pageParam, limit: LIMIT },
       });
+      
+      dispatch(update(response?.data?.docs));
       return response;
     } catch (err) {
       if (err.data.message === "Please authenticate") {
