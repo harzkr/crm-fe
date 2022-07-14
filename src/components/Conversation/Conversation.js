@@ -110,16 +110,6 @@ const Conversation = ({
   }, [dataMessages, latestMessage]);
 
   React.useEffect(() => {
-    if (createdMessage) {
-      refetchLatest();
-
-      setTimeout(() => {
-        handleScroll();
-      }, 1000);
-    }
-  }, [createdMessage, refetchLatest]);
-
-  React.useEffect(() => {
     window.onscroll = () => {
       if (window.pageYOffset === 0) {
         if (pageNo < maxPage && !isFetching && dataMessages.length !== 0) {
@@ -157,6 +147,10 @@ const Conversation = ({
       socket.on(conversationId, (data) => {
         if (data === "fetch") {
           refetchLatest();
+
+          setTimeout(() => {
+            handleScroll();
+          }, 1000);
         }
       });
     }
