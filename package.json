@@ -26,6 +26,7 @@
     "react-window-infinite-loader": "^1.0.8",
     "redux": "^4.2.0",
     "reduxsauce": "^1.2.1",
+    "socket.io-client": "^4.5.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

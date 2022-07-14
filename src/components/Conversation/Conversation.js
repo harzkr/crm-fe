@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import { days_map } from "../../utils/constants";
 import { ArrowBack, SendRounded } from "@mui/icons-material";
+import { io } from "socket.io-client";
 
 const Conversation = ({
   createMessage,
@@ -32,6 +33,22 @@ const Conversation = ({
 
   const [latestMessage, setLatestMessage] = React.useState("");
   const [otherUsername, setOtherUsername] = React.useState("");
+
+  const [socket, setSocket] = React.useState(null);
+
+  React.useEffect(() => {
+    const newSocket = io(`http://localhost:8000/`, { query: `conversationId=${conversationId}` });
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, [setSocket]);
+
+  React.useEffect(() => {
+    if(socket){
+      socket.on("connect", () => {
+        console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+      });
+    }
+  }, [socket])
 
   const handleScroll = () => {
     window.scroll({
