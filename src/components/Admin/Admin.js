@@ -1,5 +1,13 @@
 import React from "react";
-import { useTable, usePagination } from "react-table";
+import {
+  useTable,
+  usePagination,
+  useFilters,
+  useGlobalFilter,
+  useAsyncDebounce,
+  useSortBy,
+} from "react-table";
+import { matchSorter } from 'match-sorter'
 import { useNavigate } from "react-router-dom";
 import {
   Typography,
@@ -15,6 +23,7 @@ import {
   IconButton,
   Box,
   Button,
+  TextField
 } from "@mui/material";
 import {
   FirstPage as FirstPageIcon,
@@ -97,15 +106,37 @@ const Admin = ({
 }) => {
   const navigate = useNavigate();
 
+  const filterTypes = React.useMemo(
+    () => ({
+      // Add a new fuzzyTextFilterFn filter type.
+      fuzzyText: fuzzyTextFilterFn,
+      // Or, override the default text filter to use
+      // "startWith"
+      text: (rows, id, filterValue) => {
+        return rows.filter(row => {
+          const rowValue = row.values[id]
+          return rowValue !== undefined
+            ? String(rowValue)
+                .toLowerCase()
+                .startsWith(String(filterValue).toLowerCase())
+            : true
+        })
+      },
+    }),
+    []
+  )
+
   const columns = React.useMemo(
     () => [
       {
         Header: "Name",
         accessor: "name",
+        filter: "fuzzyText",
       },
       {
         Header: "Email",
         accessor: "email",
+        filter: "fuzzyText",
       },
       {
         Header: "Conversations",
@@ -136,6 +167,102 @@ const Admin = ({
     []
   );
 
+  const GlobalFilter = ({
+    preGlobalFilteredRows,
+    globalFilter,
+    setGlobalFilter,
+  }) => {
+    const count = preGlobalFilteredRows.length;
+    const [value, setValue] = React.useState(globalFilter);
+    const onChange = useAsyncDebounce((value) => {
+      setGlobalFilter(value || undefined);
+    }, 200);
+
+    return (
+      <span>
+        Search:{" "}
+        <input
+          value={value || ""}
+          onChange={(e) => {
+            setValue(e.target.value);
+            onChange(e.target.value);
+          }}
+          placeholder={`${count} records...`}
+          style={{
+            fontSize: "1.1rem",
+            border: "0",
+          }}
+        />
+      </span>
+    );
+  };
+
+  // Define a default UI for filtering
+  const DefaultColumnFilter = ({
+    column: { filterValue, preFilteredRows, setFilter },
+  }) => {
+    const count = preFilteredRows.length;
+
+    return (
+      <TextField
+        value={filterValue || ""}
+        onChange={(e) => {
+          setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
+        }}
+        placeholder={`Search ${count} records...`}
+        variant="standard"
+      />
+    );
+  };
+
+  // This is a custom filter UI for selecting
+  // a unique option from a list
+  const SelectColumnFilter = ({
+    column: { filterValue, setFilter, preFilteredRows, id },
+  }) => {
+    // Calculate the options for filtering
+    // using the preFilteredRows
+    const options = React.useMemo(() => {
+      const options = new Set();
+      preFilteredRows.forEach((row) => {
+        options.add(row.values[id]);
+      });
+      return [...options.values()];
+    }, [id, preFilteredRows]);
+
+    // Render a multi-select box
+    return (
+      <select
+        value={filterValue}
+        onChange={(e) => {
+          setFilter(e.target.value || undefined);
+        }}
+      >
+        <option value="">All</option>
+        {options.map((option, i) => (
+          <option key={i} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    );
+  };
+
+  const defaultColumn = React.useMemo(
+    () => ({
+      // Let's set up our default Filter UI
+      Filter: DefaultColumnFilter,
+    }),
+    []
+  )
+
+  function fuzzyTextFilterFn(rows, id, filterValue) {
+    return matchSorter(rows, filterValue, { keys: [(row) => row.values[id]] });
+  }
+
+  // Let the table remove the filter if the string is empty
+  fuzzyTextFilterFn.autoRemove = (val) => !val;
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -143,13 +270,20 @@ const Admin = ({
     prepareRow,
     page,
     setPageSize,
+    preGlobalFilteredRows,
+    setGlobalFilter,
   } = useTable(
     {
       columns,
       data,
       initialState: { pageIndex: 0 },
+      defaultColumn,
+      filterTypes
     },
-    usePagination
+    useFilters,
+    useGlobalFilter,
+    useSortBy,
+    usePagination,
   );
 
   const handleChangePage = (event, newPage) => {
@@ -187,6 +321,9 @@ const Admin = ({
                 {headerGroup.headers.map((column) => (
                   <TableCell {...column.getHeaderProps()}>
                     {column.render("Header")}
+                    <div>
+                      {column.canFilter ? column.render("Filter") : null}
+                    </div>
                   </TableCell>
                 ))}
               </TableRow>
